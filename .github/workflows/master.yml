@@ -21,7 +21,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /root/library-web/
+            cd /root/library-web/web-management
             chmod +x ./deploy/deploy.sh
             ./deploy/deploy.sh
 
