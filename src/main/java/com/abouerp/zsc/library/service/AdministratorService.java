@@ -64,6 +64,14 @@ public class AdministratorService {
         return administratorRepository.saveAll(administratorList);
     }
 
+    public Administrator getOne(Integer id){
+        return administratorRepository.getOne(id);
+    }
+
+    public void deleteById(Integer id) {
+        administratorRepository.deleteById(id);
+    }
+
 //    public List<Administrator> findByIdIn(List<Integer> ids) {
 //        return administratorRepository.findByIdIn(ids);
 //    }

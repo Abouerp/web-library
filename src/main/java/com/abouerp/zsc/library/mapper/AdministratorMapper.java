@@ -6,6 +6,7 @@ import com.abouerp.zsc.library.domain.Authority;
 import com.abouerp.zsc.library.domain.Role;
 import com.abouerp.zsc.library.dto.AdministratorDTO;
 import com.abouerp.zsc.library.security.UserPrincipal;
+import com.abouerp.zsc.library.vo.AdministratorVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
@@ -26,7 +27,7 @@ public interface AdministratorMapper {
 
     AdministratorDTO toDTO(Administrator administrator);
 
-//    Administrator toAdmin(AdministratorVO adminVO);
+    Administrator toAdmin(AdministratorVO adminVO);
 
     default UserPrincipal toUserPrincipal(Administrator administrator) {
         List<SimpleGrantedAuthority> authorities = administrator.getRoles()
