@@ -79,14 +79,13 @@ public class AdministratorController {
         return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administratorService.save(update(admin, adminVO))));
     }
 
-
     @GetMapping
 //    @PreAuthorize("hasAuthority('USER_READ')")
     public ResultBean<Page<AdministratorDTO>> findAll(@PageableDefault Pageable pageable, AdministratorVO administratorVO) {
         return ResultBean.ok(administratorService.findAll(administratorVO, pageable).map(AdministratorMapper.INSTANCE::toDTO));
     }
 
-//    @PreAuthorize("hasAuthority('USER_CREATE')")
+    //    @PreAuthorize("hasAuthority('USER_CREATE')")
     @PostMapping
     public ResultBean<AdministratorDTO> save(@RequestBody AdministratorVO adminVO) {
         Administrator administrator = administratorService.findFirstByUsername(adminVO.getUsername()).orElse(null);
@@ -106,7 +105,7 @@ public class AdministratorController {
         Administrator admin = administratorService.findById(id)
                 .orElseThrow(UserNotFoundException::new);
         List<Integer> roleIds = adminVO.map(AdministratorVO::getRole).get();
-        if (adminVO != null && roleIds.size() !=0) {
+        if (adminVO != null && roleIds.size() != 0) {
             admin.setRoles(roleService.findByIdIn(roleIds).stream().collect(Collectors.toSet()));
         }
         return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administratorService.save(update(admin, adminVO))));
