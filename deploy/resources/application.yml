@@ -1,0 +1,35 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: textbook
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql/textbook?createDatabaseIfNotExist=true&serverTimezone=UTC&characterEncoding=utf8
+    username: root
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
+        globally_quoted_identifiers_skip_column_definitions: true
+        dialect: org.hibernate.dialect.MySQL57InnoDBDialect
+    open-in-view: true
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    database: 0
+logging:
+  level:
+    com.Abouerp: debug
+
+storage:
+  location: /TextBook/storage
