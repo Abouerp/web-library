@@ -1,0 +1,10 @@
+[
+  {
+    "username": "admin",
+    "password": "{noop}admin",
+    "accountNonExpired": true,
+    "accountNonLocked": true,
+    "credentialsNonExpired": true,
+    "enabled": true
+  }
+]

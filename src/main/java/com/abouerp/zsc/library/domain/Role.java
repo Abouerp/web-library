@@ -3,6 +3,7 @@ package com.abouerp.zsc.library.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
@@ -23,6 +24,8 @@ import java.util.Set;
 @ToString
 @Getter
 @Setter
+@Accessors(chain = true)
+@Table
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;

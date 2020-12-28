@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 /**
  * @author Abouerp
  */
-@EnableJpaRepositories(basePackages = "com.abouerp.zsc.library.dao")
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
 @Configuration
 public class JpaConfig {
