@@ -69,16 +69,6 @@ public class AdministratorController {
         return ResultBean.ok(map);
     }
 
-    @PutMapping("/me")
-    public ResultBean<AdministratorDTO> updateMyself(
-            @AuthenticationPrincipal UserPrincipal userPrincipal,
-            @RequestBody Optional<AdministratorVO> adminVO
-    ) {
-        Administrator admin = administratorService.findById(userPrincipal.getId())
-                .orElseThrow(UserNotFoundException::new);
-        return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administratorService.save(update(admin, adminVO))));
-    }
-
     @GetMapping
 //    @PreAuthorize("hasAuthority('USER_READ')")
     public ResultBean<Page<AdministratorDTO>> findAll(@PageableDefault Pageable pageable, AdministratorVO administratorVO) {
@@ -100,7 +90,7 @@ public class AdministratorController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('USER_UPDATE')")
+    @PreAuthorize("principal.id == #id or hasAuthority('USER_UPDATE')")
     public ResultBean<AdministratorDTO> update(@PathVariable Integer id, @RequestBody Optional<AdministratorVO> adminVO) {
         Administrator admin = administratorService.findById(id)
                 .orElseThrow(UserNotFoundException::new);
