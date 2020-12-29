@@ -6,6 +6,7 @@ services:
       - library
     depends_on:
       - mysql
+      - redis
     ports:
       - 80:8080
     volumes:
@@ -14,7 +15,7 @@ services:
     restart: always
 
   mysql:
-    image: mysql
+    image: mysql/mysql-server
     networks:
       - library
     volumes:

@@ -22,7 +22,7 @@ public class StorageService {
 
     @Transactional
     public String save(String md5, MultipartFile file) {
-        Storage storage = new Storage();
+        Storage storage = storageRepository.findByMd5(md5).orElse(new Storage());
         storage = storage
                 .setMd5(md5)
                 .setContentType(file.getContentType())
