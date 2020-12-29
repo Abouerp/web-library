@@ -5,7 +5,7 @@ git reset --hard origin/master
 
 chmod +x ./mvnw && \
 ./mvnw clean compile jib:dockerBuild
-docker run -d -p 8080:80 library/abouerp:latest
+docker run -d -p 8080:80 abouerp:latest
 docker images | awk '$1 == "<none>" || $2 == "<none>" {print $3}' | xargs docker rmi
 
 
