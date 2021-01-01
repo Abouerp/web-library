@@ -15,7 +15,7 @@ services:
     restart: always
 
   mysql:
-    image: mysql/mysql-server
+    image: mysql
     networks:
       - library
     volumes:

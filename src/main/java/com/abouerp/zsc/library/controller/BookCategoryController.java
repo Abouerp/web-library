@@ -13,7 +13,6 @@ public class BookCategoryController {
 
     private final BookCategoryService bookCategoryService;
 
-
     public BookCategoryController(BookCategoryService bookCategoryService) {
         this.bookCategoryService = bookCategoryService;
     }
