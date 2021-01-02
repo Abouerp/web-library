@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.exception;
 
 /**
- * @author techial
+ * @author Abouerp
  */
 public class UserNotFoundException extends ClientErrorException {
     private static final Integer DEFAULT_CODE = 4002;
