@@ -3,11 +3,11 @@ package com.abouerp.zsc.library.exception;
 /**
  * @author Abouerp
  */
-public class UserRepeatException extends ClientErrorException {
+public class BookNotFoundException extends ClientErrorException {
     private static final Integer DEFAULT_CODE = 200;
-    private static final String DEFAULT_MSG = "User is Existing";
+    private static final String DEFAULT_MSG = "Book Not Found";
 
-    public UserRepeatException() {
+    public BookNotFoundException() {
         super(DEFAULT_CODE, DEFAULT_MSG);
     }
 }

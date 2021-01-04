@@ -59,4 +59,10 @@ public class BookCategoryController {
     public ResultBean delete(@PathVariable Integer id) {
         return ResultBean.ok();
     }
+
+    @GetMapping("/{id}")
+    public ResultBean<BookCategoryDTO> findById(@PathVariable Integer id){
+        BookCategory bookCategory = bookCategoryService.findById(id).orElseThrow(BookCategoryNotFoundException::new);
+        return ResultBean.ok(BookCategoryMapper.INSTANCE.toDTO(bookCategory));
+    }
 }

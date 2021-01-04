@@ -123,4 +123,10 @@ public class AdministratorController {
         administrator.setPassword(passwordEncoder.encode(password));
         return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administratorService.save(administrator)));
     }
+
+    @GetMapping("/{id}")
+    public ResultBean<AdministratorDTO> findById(@PathVariable Integer id){
+        Administrator administrator = administratorService.findById(id).orElseThrow(UserNotFoundException::new);
+        return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administrator));
+    }
 }
