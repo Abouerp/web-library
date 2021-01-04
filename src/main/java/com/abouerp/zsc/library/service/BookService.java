@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author Abouerp
@@ -31,8 +33,8 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
-    public void delete(Integer id) {
-        bookRepository.deleteById(id);
+    public void delete(Set<Integer> ids) {
+        bookRepository.deleteByIdIn(ids);
     }
 
     public Page<Book> findAll(BookVO bookVO, Pageable pageable) {
