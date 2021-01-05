@@ -3,11 +3,15 @@ package com.abouerp.zsc.library.service;
 import com.abouerp.zsc.library.dao.LoginLoggerRepository;
 import com.abouerp.zsc.library.domain.logger.LoginLogger;
 import com.abouerp.zsc.library.domain.logger.LoginStatusEnum;
+import com.abouerp.zsc.library.domain.logger.QLoginLogger;
 import com.abouerp.zsc.library.dto.IpResolutionDTO;
 import com.abouerp.zsc.library.utils.IpResolutionUtils;
 import com.abouerp.zsc.library.utils.LoggerUtils;
+import com.querydsl.core.BooleanBuilder;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -56,5 +60,26 @@ public class LoginLoggerService {
                 .setClient(userAgent.getBrowser().toString())
                 .setStatus(status);
         return loginLogger;
+    }
+
+    public Page<LoginLogger> findAll(LoginLogger loginLogger, Pageable pageable) {
+        if (loginLogger == null) {
+            return loginLoggerRepository.findAll(pageable);
+        }
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QLoginLogger qLoginLogger = QLoginLogger.loginLogger;
+        if (loginLogger.getUserName() != null && !loginLogger.getUserName().isEmpty()) {
+            booleanBuilder.and(qLoginLogger.userName.containsIgnoreCase(loginLogger.getUserName()));
+        }
+        if (loginLogger.getIp() != null && !loginLogger.getIp().isEmpty()) {
+            booleanBuilder.and(qLoginLogger.ip.containsIgnoreCase(loginLogger.getIp()));
+        }
+        if (loginLogger.getRegion() != null && !loginLogger.getRegion().isEmpty()) {
+            booleanBuilder.and(qLoginLogger.region.containsIgnoreCase(loginLogger.getRegion()));
+        }
+        if (loginLogger.getCity() != null && !loginLogger.getCity().isEmpty()) {
+            booleanBuilder.and(qLoginLogger.city.containsIgnoreCase(loginLogger.getCity()));
+        }
+        return loginLoggerRepository.findAll(booleanBuilder, pageable);
     }
 }
