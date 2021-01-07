@@ -33,6 +33,10 @@ public abstract class LoggerUtils {
                 return ip;
             }
         }
+        log.info("request_header= {}",request.getPathInfo());
+        log.info("RemoteAddr_ip = {}",request.getRemoteAddr());
+        log.info("RemoteHost_ip = {}", request.getRemoteHost());
+        log.info("request = {} ", request);
         return request.getRemoteAddr();
     }
 
