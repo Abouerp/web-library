@@ -26,8 +26,10 @@ public abstract class LoggerUtils {
     public static String getClientIpAddress(HttpServletRequest request) {
         for (String header : IP_HEADER_CANDIDATES) {
             String ip = request.getHeader(header);
-            log.info("ip_header_condidates = {}"+IP_HEADER_CANDIDATES+"    ip = {}"+ip);
             if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+                log.info("head = {}", header );
+                log.info("ip_header_condidates = {}",IP_HEADER_CANDIDATES);
+                log.info("ip = {}",ip);
                 return ip;
             }
         }
