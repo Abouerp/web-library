@@ -59,6 +59,7 @@ public class LoginLoggerService {
                 .setIsp(ipResolutionDTO.getData().getIsp())
                 .setOperatingSystem(userAgent.getOperatingSystem().getName())
                 .setClient(userAgent.getBrowser().toString())
+                .setRegion(ipResolutionDTO.getData().getRegion())
                 .setStatus(status);
 
         return loginLogger;
