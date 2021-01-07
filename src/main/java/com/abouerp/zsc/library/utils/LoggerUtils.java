@@ -27,16 +27,9 @@ public abstract class LoggerUtils {
         for (String header : IP_HEADER_CANDIDATES) {
             String ip = request.getHeader(header);
             if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
-                log.info("head = {}", header );
-                log.info("ip_header_condidates = {}",IP_HEADER_CANDIDATES);
-                log.info("ip = {}",ip);
                 return ip;
             }
         }
-        log.info("request_header= {}",request.getPathInfo());
-        log.info("RemoteAddr_ip = {}",request.getRemoteAddr());
-        log.info("RemoteHost_ip = {}", request.getRemoteHost());
-        log.info("request = {} ", request);
         return request.getRemoteAddr();
     }
 
