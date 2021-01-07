@@ -71,6 +71,9 @@ public class LoginLoggerService {
         if (loginLogger.getUserName() != null && !loginLogger.getUserName().isEmpty()) {
             booleanBuilder.and(qLoginLogger.userName.containsIgnoreCase(loginLogger.getUserName()));
         }
+        if (loginLogger.getStatus() != null) {
+            booleanBuilder.and(qLoginLogger.status.eq(loginLogger.getStatus()));
+        }
         if (loginLogger.getIp() != null && !loginLogger.getIp().isEmpty()) {
             booleanBuilder.and(qLoginLogger.ip.containsIgnoreCase(loginLogger.getIp()));
         }
