@@ -7,7 +7,7 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql/textbook?createDatabaseIfNotExist=true&serverTimezone=UTC&characterEncoding=utf8
+    url: jdbc:mysql://mysql/library?createDatabaseIfNotExist=true&serverTimezone=UTC&characterEncoding=utf8
     username: root
   jpa:
     generate-ddl: true
@@ -27,6 +27,10 @@ spring:
     host: redis
     port: 6379
     database: 0
+  data:
+    redis:
+      repositories:
+        enabled: false
 logging:
   level:
     com.Abouerp: debug
