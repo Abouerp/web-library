@@ -5,15 +5,13 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.Instant;
 
 /**
  * @author Abouerp
  */
+@Table
 @Data
 @Entity
 @Accessors(chain = true)
@@ -34,6 +32,7 @@ public class LoginLogger {
     //客户端
     private String client;
     private String operatingSystem;
+    @Enumerated(EnumType.STRING)
     private LoginStatusEnum status;
 
     @CreationTimestamp
