@@ -2,6 +2,7 @@ package com.abouerp.zsc.library.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,6 +23,7 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 @Table
 @Entity
+@ToString
 public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -29,14 +31,19 @@ public class Book implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    //根据类别（4位code） + 随机4位生成
     private String code;
     private String isbn;
+    //作者
     private String author;
+    //出版社
     private String publisher;
+    //描述
     private String description;
+    //价格
     private Double price;
+    //出版时间
     private String publicationTime;
-    private String address;
     @ManyToOne
     private BookCategory bookCategory;
     @CreatedBy

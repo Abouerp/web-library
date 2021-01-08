@@ -15,6 +15,5 @@ public class BookVO {
     private String description;
     private Double price;
     private String publicationTime;
-    private String address;
     private Integer bookCategoryId;
 }
