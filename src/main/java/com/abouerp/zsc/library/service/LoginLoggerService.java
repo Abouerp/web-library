@@ -46,11 +46,9 @@ public class LoginLoggerService {
     }
 
     private LoginLogger toLoginLogger(String userName, LoginStatusEnum status) {
-//        log.info("head = {} ----------------------------",httpServletRequest.getHeader(HttpHeaders.USER_AGENT));
         UserAgent userAgent = UserAgent.parseUserAgentString(httpServletRequest.getHeader(HttpHeaders.USER_AGENT));
         String ip = LoggerUtils.getClientIpAddress(httpServletRequest);
         IpResolutionDTO ipResolutionDTO = IpResolutionUtils.resolution(ip);
-//        log.info(ipResolutionDTO.toString());
         LoginLogger loginLogger = new LoginLogger()
                 .setUserName(userName)
                 .setIp(ip)
