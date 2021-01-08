@@ -2,7 +2,7 @@ server:
   port: 9090
 spring:
   application:
-    name: textbook
+    name: library
   main:
     allow-bean-definition-overriding: true
   datasource:
@@ -29,9 +29,13 @@ spring:
     host: 127.0.0.1
     port: 6379
     database: 0
+  data:
+    redis:
+      repositories:
+        enabled: false
 
 logging:
   level:
-    com.Abouerp: debug
+    com.abouerp: debug
 storage:
   location: f://upload/Downloads/library/
