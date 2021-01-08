@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -56,5 +55,9 @@ public class BookService {
             booleanBuilder.and(qBook.publisher.containsIgnoreCase(bookVO.getPublisher()));
         }
         return bookRepository.findAll(booleanBuilder, pageable);
+    }
+
+    public Book findBookByBookCategoryId(Integer id){
+        return bookRepository.findBookByBookCategoryId(id);
     }
 }

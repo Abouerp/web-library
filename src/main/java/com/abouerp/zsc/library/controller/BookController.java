@@ -10,6 +10,7 @@ import com.abouerp.zsc.library.mapper.BookMapper;
 import com.abouerp.zsc.library.service.BookCategoryService;
 import com.abouerp.zsc.library.service.BookService;
 import com.abouerp.zsc.library.vo.BookVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,6 +22,7 @@ import java.util.Set;
 /**
  * @author Abouerp
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
@@ -34,8 +36,6 @@ public class BookController {
     }
 
     private static Book update(Book book, Optional<BookVO> bookVO) {
-        bookVO.map(BookVO::getAddress).ifPresent(book::setAddress);
-        bookVO.map(BookVO::getCode).ifPresent(book::setCode);
         bookVO.map(BookVO::getName).ifPresent(book::setName);
         bookVO.map(BookVO::getAuthor).ifPresent(book::setAuthor);
         bookVO.map(BookVO::getDescription).ifPresent(book::setDescription);
@@ -51,6 +51,17 @@ public class BookController {
         BookCategory bookCategory = bookCategoryService.findById(bookVO.getBookCategoryId())
                 .orElseThrow(BookCategoryNotFoundException::new);
         Book book = BookMapper.INSTANCE.toBook(bookVO);
+        Book lastBook = bookService.findBookByBookCategoryId(bookCategory.getId());
+        if (lastBook == null){
+            book.setCode(String.format(bookCategory.getCode()+"0001"));
+//            log.info("initCode = {}",String.format(bookCategory.getCode()+"0001") );
+        }else {
+//            log.info("截取字符串为 = {}", lastBook.getCode().substring(4));
+            Integer code = Integer.parseInt(lastBook.getCode().substring(4));
+            String finallyCode = String.format(bookCategory.getCode()+"%04d",code+1);
+//            log.info("生成的字符串为 = {}", finallyCode);
+            book.setCode(finallyCode);
+        }
         book.setBookCategory(bookCategory);
         return ResultBean.ok(BookMapper.INSTANCE.toDTO(bookService.save(book)));
     }
