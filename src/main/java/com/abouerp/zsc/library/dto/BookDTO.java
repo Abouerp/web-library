@@ -19,6 +19,5 @@ public class BookDTO {
     private String description;
     private Double price;
     private String publicationTime;
-    private String address;
     private BookCategory bookCategory;
 }
