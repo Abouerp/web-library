@@ -17,12 +17,21 @@ public class UserUtils {
 
     }
 
-    public static Optional<Integer> getCurrentAuditor() {
+//    public static Optional<Integer> getCurrentAuditor() {
+//        return Optional.ofNullable(SecurityContextHolder.getContext())
+//                .map(SecurityContext::getAuthentication)
+//                .filter(Authentication::isAuthenticated)
+//                .map(Authentication::getPrincipal)
+//                .map(UserPrincipal.class::cast)
+//                .map(UserPrincipal::getId);
+//    }
+
+    public static Optional<String> getCurrentAuditorUsername() {
         return Optional.ofNullable(SecurityContextHolder.getContext())
                 .map(SecurityContext::getAuthentication)
                 .filter(Authentication::isAuthenticated)
                 .map(Authentication::getPrincipal)
                 .map(UserPrincipal.class::cast)
-                .map(UserPrincipal::getId);
+                .map(UserPrincipal::getUsername);
     }
 }

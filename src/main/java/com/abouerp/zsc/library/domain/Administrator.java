@@ -45,9 +45,9 @@ public class Administrator implements Serializable {
     @ManyToMany
     private Set<Role> roles = new HashSet<>();
     @CreatedBy
-    private Integer createBy;
+    private String createBy;
     @LastModifiedBy
-    private Integer updateBy;
+    private String updateBy;
     @CreationTimestamp
     private Instant createTime;
     @UpdateTimestamp

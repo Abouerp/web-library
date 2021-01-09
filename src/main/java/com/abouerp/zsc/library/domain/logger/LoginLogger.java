@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Instant;
 
 /**
@@ -15,7 +16,8 @@ import java.time.Instant;
 @Data
 @Entity
 @Accessors(chain = true)
-public class LoginLogger {
+public class LoginLogger implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +34,7 @@ public class LoginLogger {
     //客户端
     private String client;
     private String operatingSystem;
+    private String description;
     @Enumerated(EnumType.STRING)
     private LoginStatusEnum status;
 

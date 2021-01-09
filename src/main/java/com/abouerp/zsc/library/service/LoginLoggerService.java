@@ -34,8 +34,9 @@ public class LoginLoggerService {
     }
 
     @Async
-    public void fail(String s) {
+    public void fail(String s, String description) {
         LoginLogger loginLogger = toLoginLogger(s, LoginStatusEnum.FAIL);
+        loginLogger.setDescription(description);
         loginLoggerRepository.save(loginLogger);
     }
 

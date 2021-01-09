@@ -47,9 +47,9 @@ public class Book implements Serializable {
     @ManyToOne
     private BookCategory bookCategory;
     @CreatedBy
-    private Integer createBy;
+    private String createBy;
     @LastModifiedBy
-    private Integer updateBy;
+    private String updateBy;
     @CreationTimestamp
     private Instant createTime;
     @UpdateTimestamp

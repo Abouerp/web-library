@@ -31,9 +31,9 @@ public class BookCategory implements Serializable {
     private String name;
     private String code;
     @CreatedBy
-    private Integer createBy;
+    private String createBy;
     @LastModifiedBy
-    private Integer updateBy;
+    private String updateBy;
     @CreationTimestamp
     private Instant createTime;
     @UpdateTimestamp
