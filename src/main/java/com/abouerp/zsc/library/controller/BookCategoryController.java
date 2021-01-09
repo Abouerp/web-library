@@ -4,7 +4,6 @@ import com.abouerp.zsc.library.bean.ResultBean;
 import com.abouerp.zsc.library.domain.BookCategory;
 import com.abouerp.zsc.library.dto.BookCategoryDTO;
 import com.abouerp.zsc.library.exception.BookCategoryNotFoundException;
-import com.abouerp.zsc.library.exception.BookCategoryRepeatException;
 import com.abouerp.zsc.library.mapper.BookCategoryMapper;
 import com.abouerp.zsc.library.service.BookCategoryService;
 import com.abouerp.zsc.library.vo.BookCategoryVO;

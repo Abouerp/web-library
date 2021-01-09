@@ -6,7 +6,6 @@ import com.abouerp.zsc.library.domain.Role;
 import com.abouerp.zsc.library.dto.AdministratorDTO;
 import com.abouerp.zsc.library.exception.PasswordNotMatchException;
 import com.abouerp.zsc.library.exception.UserNotFoundException;
-import com.abouerp.zsc.library.exception.UserRepeatException;
 import com.abouerp.zsc.library.mapper.AdministratorMapper;
 import com.abouerp.zsc.library.security.UserPrincipal;
 import com.abouerp.zsc.library.service.AdministratorService;
@@ -80,7 +79,7 @@ public class AdministratorController {
     public ResultBean<AdministratorDTO> save(@RequestBody AdministratorVO adminVO) {
         Administrator administrator = administratorService.findFirstByUsername(adminVO.getUsername()).orElse(null);
         if (administrator != null) {
-            throw new UserRepeatException();
+            return ResultBean.of(200,"User id Exist");
         }
         Set<Role> roles = roleService.findByIdIn(adminVO.getRole()).stream().collect(Collectors.toSet());
         adminVO.setPassword(passwordEncoder.encode(adminVO.getPassword()));
