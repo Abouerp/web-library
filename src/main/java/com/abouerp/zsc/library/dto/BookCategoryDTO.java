@@ -12,8 +12,8 @@ public class BookCategoryDTO {
     private Integer id;
     private String name;
     private String code;
-    private Integer createBy;
-    private Integer updateBy;
+    private String createBy;
+    private String  updateBy;
     private Instant createTime;
     private Instant updateTime;
 }
