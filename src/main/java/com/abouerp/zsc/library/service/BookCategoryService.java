@@ -50,5 +50,8 @@ public class BookCategoryService {
         return bookCategoryRepository.findAll(booleanBuilder, pageable);
     }
 
+    public BookCategory findByCode(String code){
+        return bookCategoryRepository.findByCode(code);
+    }
 
 }
