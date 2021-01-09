@@ -36,7 +36,8 @@ public class BookCategoryController {
 
     @PostMapping
     public ResultBean<BookCategoryDTO> save(@RequestBody BookCategoryVO bookCategoryVO) {
-        if (bookCategoryService.findByCode(bookCategoryVO.getCode()) != null) {
+        BookCategory exist = bookCategoryService.findByCode(bookCategoryVO.getCode());
+        if (exist != null) {
             throw new BookCategoryRepeatException();
         }
         BookCategory bookCategory = bookCategoryService.save(BookCategoryMapper.INSTANCE.toModle(bookCategoryVO));
