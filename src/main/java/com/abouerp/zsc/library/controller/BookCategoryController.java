@@ -38,7 +38,7 @@ public class BookCategoryController {
     public ResultBean<BookCategoryDTO> save(@RequestBody BookCategoryVO bookCategoryVO) {
         BookCategory exist = bookCategoryService.findByCode(bookCategoryVO.getCode());
         if (exist != null) {
-            throw new BookCategoryRepeatException();
+            return ResultBean.of(200,"BookCategory is Exist");
         }
         BookCategory bookCategory = bookCategoryService.save(BookCategoryMapper.INSTANCE.toModle(bookCategoryVO));
         return ResultBean.ok(BookCategoryMapper.INSTANCE.toDTO(bookCategory));
