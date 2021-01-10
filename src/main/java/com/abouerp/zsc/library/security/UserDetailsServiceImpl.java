@@ -36,16 +36,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String s) {
         Administrator administrator = administratorRepository.findFirstByUsername(s).orElse(null);
         if (administrator == null) {
-            loginLoggerService.fail(s,"User don't exist" );
+            loginLoggerService.fail(s, "User don't exist");
             throw new UnauthorizedException();
 //            return null;
         }
         String password = httpServletRequest.getParameter("password");
-        if (Boolean.FALSE.equals(passwordEncoder.matches(password,administrator.getPassword()))){
-            loginLoggerService.fail(s,"Password Error");
+        if (Boolean.FALSE.equals(passwordEncoder.matches(password, administrator.getPassword()))) {
+            loginLoggerService.fail(s, "Password Error");
             throw new UnauthorizedException();
 //            return null;
         }
