@@ -17,7 +17,6 @@ public class LoggingAspect {
     private final OperatorLoggerService operatorLoggerService;
     private Date visitTime;
 
-
     public LoggingAspect(OperatorLoggerService operatorLoggerService) {
         this.operatorLoggerService = operatorLoggerService;
     }

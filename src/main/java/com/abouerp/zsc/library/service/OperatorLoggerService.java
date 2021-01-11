@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Abouerp
@@ -42,6 +44,10 @@ public class OperatorLoggerService {
 
     private OperatorLogger toOperatorLogger(JoinPoint joinPoint, long executionTime) {
         UserAgent userAgent = UserAgent.parseUserAgentString(httpServletRequest.getHeader(HttpHeaders.USER_AGENT));
+        log.info("------------测路径------------");
+        log.info(httpServletRequest.getRequestURI());
+        log.info(httpServletRequest.getServletPath());
+
         OperatorLogger operatorLogger = new OperatorLogger()
                 .setIp(LoggerUtils.getClientIpAddress(httpServletRequest))
                 .setClient(userAgent.getBrowser().getName())
@@ -77,5 +83,13 @@ public class OperatorLoggerService {
             booleanBuilder.and(qOperatorLogger.operatingSystem.containsIgnoreCase(operatorLogger.getOperatingSystem()));
         }
         return operatorLoggerRepository.findAll(booleanBuilder, pageable);
+    }
+
+    public Map<String, String> converMap(Map<String, String[]> paramMap) {
+        Map<String, String> rtnMap = new HashMap<String, String>();
+        for (String key : paramMap.keySet()) {
+            rtnMap.put(key, paramMap.get(key)[0]);
+        }
+        return rtnMap;
     }
 }
