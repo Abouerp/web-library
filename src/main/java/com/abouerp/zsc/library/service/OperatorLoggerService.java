@@ -4,10 +4,8 @@ import com.abouerp.zsc.library.dao.OperatorLoggerRepository;
 import com.abouerp.zsc.library.domain.logger.OperatorLogger;
 import com.abouerp.zsc.library.utils.LoggerUtils;
 import com.abouerp.zsc.library.utils.SecurityUtils;
-import com.abouerp.zsc.library.utils.UserUtils;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.security.SecurityUtil;
 import org.aspectj.lang.JoinPoint;
 import org.springframework.http.HttpHeaders;
 import org.springframework.scheduling.annotation.Async;
@@ -36,10 +34,9 @@ public class OperatorLoggerService {
     public void recode(JoinPoint joinPoint, long executionTime) {
         OperatorLogger operatorLogger = toOperatorLogger(joinPoint, executionTime);
         operatorLoggerRepository.save(operatorLogger);
-//        log.info("执行了保存-----------------------{}", executionTime);
     }
 
-    private OperatorLogger toOperatorLogger(JoinPoint joinPoint, long executionTime){
+    private OperatorLogger toOperatorLogger(JoinPoint joinPoint, long executionTime) {
         UserAgent userAgent = UserAgent.parseUserAgentString(httpServletRequest.getHeader(HttpHeaders.USER_AGENT));
         OperatorLogger operatorLogger = new OperatorLogger()
                 .setIp(LoggerUtils.getClientIpAddress(httpServletRequest))
