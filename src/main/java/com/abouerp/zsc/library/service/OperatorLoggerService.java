@@ -48,7 +48,7 @@ public class OperatorLoggerService {
                 .setExecutionTime(executionTime)
                 .setHttpMethod(httpServletRequest.getMethod())
                 .setOperatingSystem(userAgent.getOperatingSystem().getName())
-                .setPath(httpServletRequest.getRequestURL().toString())
+                .setPath(httpServletRequest.getRequestURI())
                 .setParam(Arrays.toString(joinPoint.getArgs()))
                 .setUsername(SecurityUtils.getCurrentUserLogin())
                 .setSignatureName(String.format("%s.%s()", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName()));

@@ -29,12 +29,12 @@ public class LoggerController {
     }
 
     @GetMapping("/login")
-    public ResultBean<Page<LoginLogger>> findAll(@PageableDefault Pageable pageable, LoginLogger loginLogger){
+    public ResultBean<Page<LoginLogger>> findAllLogin(@PageableDefault Pageable pageable, LoginLogger loginLogger){
         return ResultBean.ok(loginLoggerService.findAll(loginLogger,pageable));
     }
 
     @GetMapping("/operator")
-    public ResultBean<Page<OperatorLogger>> findAll(@PageableDefault Pageable pageable, OperatorLogger operatorLogger){
+    public ResultBean<Page<OperatorLogger>> findAllOperator(@PageableDefault Pageable pageable, OperatorLogger operatorLogger){
         return ResultBean.ok(operatorLoggerService.findAll(operatorLogger,pageable));
     }
 
