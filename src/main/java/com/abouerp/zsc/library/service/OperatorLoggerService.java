@@ -41,6 +41,9 @@ public class OperatorLoggerService {
         log.info("------------测路径------------");
         log.info(httpServletRequest.getRequestURI());
         log.info(httpServletRequest.getServletPath());
+        if (httpServletRequest.getRequestURI().equals("/api/logger/operator") || httpServletRequest.getRequestURI().equals("/api/user/me")){
+            return;
+        }
         OperatorLogger operatorLogger = toOperatorLogger(joinPoint, executionTime);
         operatorLoggerRepository.save(operatorLogger);
     }
