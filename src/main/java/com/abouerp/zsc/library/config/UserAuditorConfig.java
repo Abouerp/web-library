@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * @author Abouerp
  */
-public class UserAuditorConfig implements  AuditorAware<String> {
+public class UserAuditorConfig implements AuditorAware<String> {
 
 
 //    public Optional<Integer> getCurrentAuditor() {
@@ -17,7 +17,7 @@ public class UserAuditorConfig implements  AuditorAware<String> {
 //    }
 
     @Override
-    public Optional<String> getCurrentAuditor(){
+    public Optional<String> getCurrentAuditor() {
         return UserUtils.getCurrentAuditorUsername();
     }
 

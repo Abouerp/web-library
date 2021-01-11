@@ -1,12 +1,10 @@
 package com.abouerp.zsc.library.aop;
 
 import com.abouerp.zsc.library.service.OperatorLoggerService;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 
-import java.time.Instant;
 import java.util.Date;
 
 /**
@@ -37,6 +35,6 @@ public class LoggingAspect {
 
     @AfterReturning("applicationPackagePointcut()")
     public void afterLogAround(JoinPoint joinPoint) {
-        operatorLoggerService.recode(joinPoint, new Date().getTime()-visitTime.getTime());
+        operatorLoggerService.recode(joinPoint, new Date().getTime() - visitTime.getTime());
     }
 }

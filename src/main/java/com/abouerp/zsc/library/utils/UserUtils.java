@@ -1,7 +1,6 @@
 package com.abouerp.zsc.library.utils;
 
 
-
 import com.abouerp.zsc.library.security.UserPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;

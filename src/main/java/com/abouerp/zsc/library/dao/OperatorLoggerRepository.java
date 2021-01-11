@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @author Abouerp
  */
 @Repository
-public interface OperatorLoggerRepository extends JpaRepository<OperatorLogger,Long>, QuerydslPredicateExecutor<OperatorLogger> {
+public interface OperatorLoggerRepository extends JpaRepository<OperatorLogger, Long>, QuerydslPredicateExecutor<OperatorLogger> {
 }
