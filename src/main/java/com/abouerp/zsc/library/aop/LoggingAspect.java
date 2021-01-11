@@ -21,10 +21,10 @@ public class LoggingAspect {
         this.operatorLoggerService = operatorLoggerService;
     }
 
-    @Pointcut(value = "within(com.abouerp.zsc.library.controller..*) && execution(public * com.abouerp.zsc.library.controller.AdministratorController.me())" +
-            "&& execution(public * com.abouerp.zsc.library.controller.LoggerController.findAllOperator())")
+    @Pointcut(value = "within(com.abouerp.zsc.library.controller..*) ")
     public void applicationPackagePointcut() {
-        // ...
+        // ...&& execution(public * com.abouerp.zsc.library.controller.AdministratorController.me())" +
+        //            "&& execution(public * com.abouerp.zsc.library.controller.LoggerController.findAllOperator())"
     }
 
     @Before("applicationPackagePointcut()")

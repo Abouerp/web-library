@@ -38,16 +38,15 @@ public class OperatorLoggerService {
 
     @Async
     public void recode(JoinPoint joinPoint, long executionTime) {
+        log.info("------------测路径------------");
+        log.info(httpServletRequest.getRequestURI());
+        log.info(httpServletRequest.getServletPath());
         OperatorLogger operatorLogger = toOperatorLogger(joinPoint, executionTime);
         operatorLoggerRepository.save(operatorLogger);
     }
 
     private OperatorLogger toOperatorLogger(JoinPoint joinPoint, long executionTime) {
         UserAgent userAgent = UserAgent.parseUserAgentString(httpServletRequest.getHeader(HttpHeaders.USER_AGENT));
-        log.info("------------测路径------------");
-        log.info(httpServletRequest.getRequestURI());
-        log.info(httpServletRequest.getServletPath());
-
         OperatorLogger operatorLogger = new OperatorLogger()
                 .setIp(LoggerUtils.getClientIpAddress(httpServletRequest))
                 .setClient(userAgent.getBrowser().getName())
