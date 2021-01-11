@@ -40,7 +40,7 @@ public class OperatorLoggerService {
 
     @Async
     public void recode(JoinPoint joinPoint, long executionTime) {
-        if (httpServletRequest.getRequestURI().equals("/api/logger/operator") || httpServletRequest.getRequestURI().equals("/api/user/me")){
+        if (httpServletRequest.getRequestURI().equals("/api/logger/operator") || httpServletRequest.getRequestURI().equals("/api/user/me")) {
             return;
         }
         OperatorLogger operatorLogger = toOperatorLogger(joinPoint, executionTime);
@@ -60,10 +60,13 @@ public class OperatorLoggerService {
                 .setHttpMethod(httpServletRequest.getMethod())
                 .setOperatingSystem(userAgent.getOperatingSystem().getName())
                 .setPath(httpServletRequest.getRequestURI())
-                .setParam(Arrays.toString(joinPoint.getArgs()))
                 .setUsername(SecurityUtils.getCurrentUserLogin())
                 .setSignatureName(String.format("%s.%s()", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName()));
-
+        if (httpServletRequest.getMethod().equals("GET")) {
+            operatorLogger.setParam(JsonUtils.writeValueAsString(converMap(httpServletRequest.getParameterMap())));
+        } else {
+            operatorLogger.setParam(JsonUtils.writeValueAsString(joinPoint.getArgs()));
+        }
         return operatorLogger;
     }
 
