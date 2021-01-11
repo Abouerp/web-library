@@ -22,7 +22,7 @@ public class LoggingAspect {
         this.operatorLoggerService = operatorLoggerService;
     }
 
-    @Pointcut("within(com.abouerp.zsc.library.controller..*)")
+    @Pointcut(value = "within(com.abouerp.zsc.library.controller..*) && execution(public * com.abouerp.zsc.library.controller.AdministratorController.me())")
     public void applicationPackagePointcut() {
         // ...
     }
@@ -30,7 +30,6 @@ public class LoggingAspect {
     @Before("applicationPackagePointcut()")
     public void beforeLogAround() {
         visitTime = new Date();
-        log.info("startTime = {}", visitTime);
     }
 
     @AfterReturning("applicationPackagePointcut()")
