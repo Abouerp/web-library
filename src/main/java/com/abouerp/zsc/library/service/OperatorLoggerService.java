@@ -49,10 +49,6 @@ public class OperatorLoggerService {
 
     private OperatorLogger toOperatorLogger(JoinPoint joinPoint, long executionTime) {
         UserAgent userAgent = UserAgent.parseUserAgentString(httpServletRequest.getHeader(HttpHeaders.USER_AGENT));
-        log.info("-----------得到的json字符串为：---------------------");
-        log.info(JsonUtils.writeValueAsString(converMap(httpServletRequest.getParameterMap())));
-        log.info("--------------------------------------------------");
-        log.info(JsonUtils.writeValueAsString(joinPoint.getArgs()));
         OperatorLogger operatorLogger = new OperatorLogger()
                 .setIp(LoggerUtils.getClientIpAddress(httpServletRequest))
                 .setClient(userAgent.getBrowser().getName())
