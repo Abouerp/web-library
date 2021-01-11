@@ -51,7 +51,8 @@ public class OperatorLoggerService {
         UserAgent userAgent = UserAgent.parseUserAgentString(httpServletRequest.getHeader(HttpHeaders.USER_AGENT));
         log.info("-----------得到的json字符串为：---------------------");
         log.info(JsonUtils.writeValueAsString(converMap(httpServletRequest.getParameterMap())));
-
+        log.info("--------------------------------------------------");
+        log.info(JsonUtils.writeValueAsString(joinPoint.getArgs()));
         OperatorLogger operatorLogger = new OperatorLogger()
                 .setIp(LoggerUtils.getClientIpAddress(httpServletRequest))
                 .setClient(userAgent.getBrowser().getName())
@@ -62,6 +63,7 @@ public class OperatorLoggerService {
                 .setParam(Arrays.toString(joinPoint.getArgs()))
                 .setUsername(SecurityUtils.getCurrentUserLogin())
                 .setSignatureName(String.format("%s.%s()", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName()));
+
         return operatorLogger;
     }
 
