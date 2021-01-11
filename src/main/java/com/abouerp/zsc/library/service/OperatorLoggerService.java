@@ -3,8 +3,10 @@ package com.abouerp.zsc.library.service;
 import com.abouerp.zsc.library.dao.OperatorLoggerRepository;
 import com.abouerp.zsc.library.domain.logger.OperatorLogger;
 import com.abouerp.zsc.library.domain.logger.QOperatorLogger;
+import com.abouerp.zsc.library.utils.JsonUtils;
 import com.abouerp.zsc.library.utils.LoggerUtils;
 import com.abouerp.zsc.library.utils.SecurityUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.BooleanBuilder;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
@@ -38,9 +40,6 @@ public class OperatorLoggerService {
 
     @Async
     public void recode(JoinPoint joinPoint, long executionTime) {
-        log.info("------------测路径------------");
-        log.info(httpServletRequest.getRequestURI());
-        log.info(httpServletRequest.getServletPath());
         if (httpServletRequest.getRequestURI().equals("/api/logger/operator") || httpServletRequest.getRequestURI().equals("/api/user/me")){
             return;
         }
@@ -50,6 +49,9 @@ public class OperatorLoggerService {
 
     private OperatorLogger toOperatorLogger(JoinPoint joinPoint, long executionTime) {
         UserAgent userAgent = UserAgent.parseUserAgentString(httpServletRequest.getHeader(HttpHeaders.USER_AGENT));
+        log.info("-----------得到的json字符串为：---------------------");
+        log.info(JsonUtils.writeValueAsString(converMap(httpServletRequest.getParameterMap())));
+
         OperatorLogger operatorLogger = new OperatorLogger()
                 .setIp(LoggerUtils.getClientIpAddress(httpServletRequest))
                 .setClient(userAgent.getBrowser().getName())
