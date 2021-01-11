@@ -124,7 +124,7 @@
 					<!--from节点用来设置镜像的基础镜像，相当于Docerkfile中的FROM关键字-->
 					<from>
 						<!--使用openjdk官方镜像，tag是8-jdk-stretch，表示镜像的操作系统是debian9,装好了jdk8-->
-						<image>openjdk:8-jdk-stretch</image>
+						<image>openjdk:8u212-jdk-stretch</image>
 					</from>
 					<to>
 						<!--镜像名称和tag，使用了mvn内置变量${project.version}，表示当前工程的version-->
