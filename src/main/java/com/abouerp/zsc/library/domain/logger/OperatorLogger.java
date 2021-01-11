@@ -29,6 +29,7 @@ public class OperatorLogger implements Serializable {
     //get post delete put path
     private String httpMethod;
     private String username;
+    @Lob
     private String param;
     //请求路径
     private String path;
