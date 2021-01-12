@@ -51,15 +51,12 @@ public class BookController {
         BookCategory bookCategory = bookCategoryService.findById(bookVO.getBookCategoryId())
                 .orElseThrow(BookCategoryNotFoundException::new);
         Book book = BookMapper.INSTANCE.toBook(bookVO);
-        Book lastBook = bookService.findBookByBookCategoryId(bookCategory.getId());
+        Book lastBook = bookService.findLastBookByBookCategoryId(bookCategory.getId());
         if (lastBook == null){
             book.setCode(String.format(bookCategory.getCode()+"0001"));
-//            log.info("initCode = {}",String.format(bookCategory.getCode()+"0001") );
         }else {
-//            log.info("截取字符串为 = {}", lastBook.getCode().substring(4));
             Integer code = Integer.parseInt(lastBook.getCode().substring(4));
             String finallyCode = String.format(bookCategory.getCode()+"%04d",code+1);
-//            log.info("生成的字符串为 = {}", finallyCode);
             book.setCode(finallyCode);
         }
         book.setBookCategory(bookCategory);
@@ -92,4 +89,8 @@ public class BookController {
         Book book = bookService.findById(id).orElseThrow(BookNotFoundException::new);
         return ResultBean.ok(BookMapper.INSTANCE.toDTO(book));
     }
+
+//    public ResultBean<BookDTO> findByBookCategoryId(@PathVariable Integer id){
+//
+//    }
 }

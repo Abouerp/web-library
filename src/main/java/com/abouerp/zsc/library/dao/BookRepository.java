@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Abouerp
@@ -24,6 +25,8 @@ public interface BookRepository extends JpaRepository<Book, Integer>, QuerydslPr
      * @return 返回该类别的最后一本的book
      */
     @Query(value = "select * from Book where bookCategory_id = ?1 order by id desc limit 1", nativeQuery = true)
-    Book findBookByBookCategoryId(Integer id);
+    Book findLastBookByBookCategoryId(Integer id);
+
+    List<Book> findBookByBookCategoryId(Integer id);
 
 }

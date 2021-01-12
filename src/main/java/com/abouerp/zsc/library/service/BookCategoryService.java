@@ -1,6 +1,8 @@
 package com.abouerp.zsc.library.service;
 
 import com.abouerp.zsc.library.dao.BookCategoryRepository;
+import com.abouerp.zsc.library.dao.BookRepository;
+import com.abouerp.zsc.library.domain.Book;
 import com.abouerp.zsc.library.domain.BookCategory;
 import com.abouerp.zsc.library.domain.QBookCategory;
 import com.abouerp.zsc.library.vo.BookCategoryVO;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,9 +21,13 @@ import java.util.Optional;
 public class BookCategoryService {
 
     private final BookCategoryRepository bookCategoryRepository;
+    private final BookRepository bookRepository;
 
-    public BookCategoryService(BookCategoryRepository bookCategoryRepository) {
+    public BookCategoryService(BookCategoryRepository bookCategoryRepository,
+                               BookRepository bookRepository) {
         this.bookCategoryRepository = bookCategoryRepository;
+        this.bookRepository = bookRepository;
+
     }
 
     public Optional<BookCategory> findById(Integer id) {
@@ -31,8 +38,12 @@ public class BookCategoryService {
         return bookCategoryRepository.save(category);
     }
 
-    public void delete(Integer id) {
-        bookCategoryRepository.deleteById(id);
+    public List<Book> delete(Integer id) {
+        List<Book> bookList = bookRepository.findBookByBookCategoryId(id);
+        if (bookList == null || bookList.size() == 0) {
+            bookCategoryRepository.deleteById(id);
+        }
+        return bookList;
     }
 
     public Page<BookCategory> findAll(BookCategoryVO bookCategoryVO, Pageable pageable) {
@@ -50,7 +61,7 @@ public class BookCategoryService {
         return bookCategoryRepository.findAll(booleanBuilder, pageable);
     }
 
-    public BookCategory findByCode(String code){
+    public BookCategory findByCode(String code) {
         return bookCategoryRepository.findByCode(code);
     }
 

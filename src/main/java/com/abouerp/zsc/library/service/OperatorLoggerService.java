@@ -6,7 +6,6 @@ import com.abouerp.zsc.library.domain.logger.QOperatorLogger;
 import com.abouerp.zsc.library.utils.JsonUtils;
 import com.abouerp.zsc.library.utils.LoggerUtils;
 import com.abouerp.zsc.library.utils.SecurityUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.BooleanBuilder;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 

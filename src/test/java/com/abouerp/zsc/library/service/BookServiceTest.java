@@ -22,8 +22,16 @@ public class BookServiceTest {
     private BookRepository bookRepository;
 
     @Test
-    public void findBookByBookCategoryId() {
-        Book book = bookRepository.findBookByBookCategoryId(3);
+    public void findLastBookByBookCategoryId() {
+        Book book = bookRepository.findLastBookByBookCategoryId(3);
         System.out.println(book);
+    }
+
+    @Test
+    public void findBookByBookCategoryId(){
+        List<Book> books = bookRepository.findBookByBookCategoryId(1);
+        for (Book book:books){
+            System.out.println(book);
+        }
     }
 }

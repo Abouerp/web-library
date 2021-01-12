@@ -1,11 +1,15 @@
 package com.abouerp.zsc.library.controller;
 
 import com.abouerp.zsc.library.bean.ResultBean;
+import com.abouerp.zsc.library.domain.Book;
 import com.abouerp.zsc.library.domain.BookCategory;
 import com.abouerp.zsc.library.dto.BookCategoryDTO;
+import com.abouerp.zsc.library.dto.BookDTO;
 import com.abouerp.zsc.library.exception.BookCategoryNotFoundException;
 import com.abouerp.zsc.library.mapper.BookCategoryMapper;
+import com.abouerp.zsc.library.mapper.BookMapper;
 import com.abouerp.zsc.library.service.BookCategoryService;
+import com.abouerp.zsc.library.service.BookService;
 import com.abouerp.zsc.library.vo.BookCategoryVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -61,7 +65,7 @@ public class BookCategoryController {
 
     @DeleteMapping("/{id}")
     public ResultBean delete(@PathVariable Integer id) {
-        return ResultBean.ok();
+        return ResultBean.of(200,"Some books exist in this category", bookCategoryService.delete(id).stream().map(BookMapper.INSTANCE::toDTO));
     }
 
     @GetMapping("/{id}")
