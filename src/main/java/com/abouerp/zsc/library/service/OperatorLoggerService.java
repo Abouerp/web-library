@@ -40,7 +40,7 @@ public class OperatorLoggerService {
 
     @Async
     public void recode(JoinPoint joinPoint, long executionTime) {
-        if (httpServletRequest.getRequestURI().equals("/api/logger/operator") || httpServletRequest.getRequestURI().equals("/api/user/me")) {
+        if (httpServletRequest.getRequestURI().equals("/api/logger/operator") || httpServletRequest.getRequestURI().equals("/api/user/me") || httpServletRequest.getRequestURI().equals("/api/user/login")) {
             return;
         }
         OperatorLogger operatorLogger = toOperatorLogger(joinPoint, executionTime);
