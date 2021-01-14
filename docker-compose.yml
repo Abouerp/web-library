@@ -51,7 +51,6 @@ services:
       RABBITMQ_DEFAULT_VHOST: "my_rabbitmq"
       RABBITMQ_DEFAULT_USER: "admin"
       RABBITMQ_DEFAULT_PASS: "admin"
-    container_name: library_rabbitmq
     restart: always
 
 etworks:
