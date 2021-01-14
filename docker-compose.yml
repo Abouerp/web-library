@@ -7,6 +7,7 @@ services:
     depends_on:
       - mysql
       - redis
+      - rabbit_mq
     ports:
       - 80:8080
     volumes:
@@ -35,7 +36,26 @@ services:
       - library_redis_data:/data
     restart: always
 
-networks:
+  rabbit_mq:
+    #RabbitMQ的一个重要注意事项是它根据所谓的 “节点名称” 存储数据，默认为主机名
+    hostname: rabbitmq
+    image: rabbitmq:management
+    networks:
+      - library
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - library_rabbitmq_data:/data
+    environment:
+      RABBITMQ_DEFAULT_VHOST: "my_rabbitmq"
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "admin"
+    container_name: library_rabbitmq
+    restart: always
+
+etworks:
   library:
     external: true
 

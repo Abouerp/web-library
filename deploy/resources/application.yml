@@ -31,6 +31,12 @@ spring:
     redis:
       repositories:
         enabled: false
+  rabbitmq:
+    username: admin
+    password: admin
+    port: 5672
+    host: rabbitmq
+    virtual-host: my_rabbitmq
 logging:
   level:
     com.Abouerp: debug

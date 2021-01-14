@@ -29,7 +29,10 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -98,16 +101,26 @@
 <!--			<artifactId>spring-data-elasticsearch</artifactId>-->
 <!--&lt;!&ndash;			<version>3.2.5.RELEASE</version>&ndash;&gt;-->
 <!--		</dependency>-->
+		<!-- https://mvnrepository.com/artifact/com.github.vanroy/spring-boot-starter-data-jest -->
+<!--		<dependency>-->
+<!--			<groupId>com.github.vanroy</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-jest</artifactId>-->
+<!--			<version>3.3.0.RELEASE</version>-->
+<!--		</dependency>-->
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 <!--			<version>2.2.5.RELEASE</version>-->
 		</dependency>
+<!--		解析请求头的参数-->
 		<dependency>
 			<groupId>eu.bitwalker</groupId>
 			<artifactId>UserAgentUtils</artifactId>
 			<version>1.21</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
