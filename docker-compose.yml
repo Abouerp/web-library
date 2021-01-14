@@ -53,7 +53,7 @@ services:
       RABBITMQ_DEFAULT_PASS: "admin"
     restart: always
 
-etworks:
+networks:
   library:
     external: true
 
