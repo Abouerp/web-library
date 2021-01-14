@@ -7,7 +7,7 @@ services:
     depends_on:
       - mysql
       - redis
-      - rabbit_mq
+      - rabbitmq
     ports:
       - 80:8080
     volumes:
@@ -36,7 +36,7 @@ services:
       - library_redis_data:/data
     restart: always
 
-  rabbit_mq:
+  rabbitmq:
     #RabbitMQ的一个重要注意事项是它根据所谓的 “节点名称” 存储数据，默认为主机名
     hostname: rabbitmq
     image: rabbitmq:management
