@@ -64,5 +64,7 @@ volumes:
     external: true
   library_redis_data:
     external: true
+  library_rabbitmq_data:
+    external: true
 
 
