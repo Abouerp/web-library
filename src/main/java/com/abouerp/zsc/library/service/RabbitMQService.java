@@ -1,25 +1,22 @@
 package com.abouerp.zsc.library.service;
 
-
+import com.abouerp.zsc.library.config.RabbitMqConfiguration;
 import com.abouerp.zsc.library.domain.Book;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.scheduling.annotation.Async;
+import com.abouerp.zsc.library.utils.JsonUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 /**
  * @author Abouerp
  */
+@Slf4j
 @Service
 public class RabbitMQService {
 
-    private final RabbitTemplate rabbitTemplate;
-
-    public RabbitMQService(RabbitTemplate rabbitTemplate) {
-        this.rabbitTemplate = rabbitTemplate;
-    }
-
-    @Async
-    public void send(Book book){
-//        rabbitTemplate.convertAndSend(RabbitMqConfiguration.EXCHANGE_NAME,"",);
+    @RabbitListener(queues = RabbitMqConfiguration.QUEUE_NAME)
+    public void receive(Message message){
+        log.info("接收到的消息：{}",JsonUtils.readValue(message.getBody(), Book.class));
     }
 }

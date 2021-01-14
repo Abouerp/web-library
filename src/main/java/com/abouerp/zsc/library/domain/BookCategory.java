@@ -2,6 +2,7 @@ package com.abouerp.zsc.library.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,6 +23,7 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 @Table
 @Entity
+@ToString
 public class BookCategory implements Serializable {
     private static final long serialVersionUID = 1L;
 

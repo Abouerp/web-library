@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import java.io.IOException;
+
 /**
  * @author Abouerp
  */
@@ -28,6 +30,16 @@ public abstract class JsonUtils {
             log.info(str);
             return DEFAULT_MAPPER.readValue(str, aClass);
         } catch (JsonProcessingException e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    public static <T> T readValue(@Nullable byte[] bytes, @NonNull Class<T> aClass) {
+        try {
+            return DEFAULT_MAPPER.readValue(bytes, aClass);
+        } catch (IOException e) {
+            log.info("converter json by bytes error");
             return null;
         }
     }
