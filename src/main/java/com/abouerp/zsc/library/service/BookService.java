@@ -55,14 +55,17 @@ public class BookService {
         if (bookVO.getPublisher() != null && !bookVO.getPublisher().isEmpty()) {
             booleanBuilder.and(qBook.publisher.containsIgnoreCase(bookVO.getPublisher()));
         }
+        if (bookVO.getBookCategoryId() != null) {
+            booleanBuilder.and(qBook.bookCategory.id.eq(bookVO.getBookCategoryId()));
+        }
         return bookRepository.findAll(booleanBuilder, pageable);
     }
 
-    public Book findLastBookByBookCategoryId(Integer id){
+    public Book findLastBookByBookCategoryId(Integer id) {
         return bookRepository.findLastBookByBookCategoryId(id);
     }
 
-    public List<Book> findByBookCategoryId(Integer id){
+    public List<Book> findByBookCategoryId(Integer id) {
         return bookRepository.findBookByBookCategoryId(id);
     }
 }
