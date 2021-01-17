@@ -3,6 +3,7 @@ package com.abouerp.zsc.library.controller;
 import com.abouerp.zsc.library.bean.ResultBean;
 import com.abouerp.zsc.library.domain.BookCategory;
 import com.abouerp.zsc.library.dto.BookCategoryDTO;
+import com.abouerp.zsc.library.dto.BookDTO;
 import com.abouerp.zsc.library.exception.BookCategoryNotFoundException;
 import com.abouerp.zsc.library.mapper.BookCategoryMapper;
 import com.abouerp.zsc.library.mapper.BookMapper;
@@ -13,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Abouerp
@@ -38,7 +41,7 @@ public class BookCategoryController {
     public ResultBean<BookCategoryDTO> save(@RequestBody BookCategoryVO bookCategoryVO) {
         BookCategory exist = bookCategoryService.findByCode(bookCategoryVO.getCode());
         if (exist != null) {
-            return ResultBean.of(200,"BookCategory is Exist");
+            return ResultBean.of(200, "BookCategory Code is Exist");
         }
         BookCategory bookCategory = bookCategoryService.save(BookCategoryMapper.INSTANCE.toModle(bookCategoryVO));
         return ResultBean.ok(BookCategoryMapper.INSTANCE.toDTO(bookCategory));
@@ -62,9 +65,11 @@ public class BookCategoryController {
 
     @DeleteMapping("/{id}")
     public ResultBean delete(@PathVariable Integer id) {
-        return ResultBean.of(200,
-                "Some books exist in this category",
-                bookCategoryService.delete(id).stream().map(BookMapper.INSTANCE::toDTO));
+        List<BookDTO> dtoList = bookCategoryService.delete(id).stream().map(BookMapper.INSTANCE::toDTO).collect(Collectors.toList());
+        if (dtoList.size() == 0) {
+            return ResultBean.ok();
+        }
+        return ResultBean.of(200, "Some books exist in this category", dtoList);
     }
 
     @GetMapping("/{id}")

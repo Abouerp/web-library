@@ -90,7 +90,4 @@ public class BookController {
         return ResultBean.ok(BookMapper.INSTANCE.toDTO(book));
     }
 
-//    public ResultBean<BookDTO> findByBookCategoryId(@PathVariable Integer id){
-//
-//    }
 }
