@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Instant;
+
 /**
  * @author Abouerp
  */
@@ -29,13 +31,19 @@ public class LoggerController {
     }
 
     @GetMapping("/login")
-    public ResultBean<Page<LoginLogger>> findAllLogin(@PageableDefault Pageable pageable, LoginLogger loginLogger){
-        return ResultBean.ok(loginLoggerService.findAll(loginLogger,pageable));
+    public ResultBean<Page<LoginLogger>> findAllLogin(@PageableDefault Pageable pageable, LoginLogger loginLogger) {
+        return ResultBean.ok(loginLoggerService.findAll(loginLogger, pageable));
     }
 
     @GetMapping("/operator")
-    public ResultBean<Page<OperatorLogger>> findAllOperator(@PageableDefault Pageable pageable, OperatorLogger operatorLogger){
-        return ResultBean.ok(operatorLoggerService.findAll(operatorLogger,pageable));
+    public ResultBean<Page<OperatorLogger>> findAllOperator(@PageableDefault Pageable pageable,
+                                                            OperatorLogger operatorLogger,
+                                                            Instant startTime,
+                                                            Instant endTime) {
+        if (endTime == null) {
+            endTime = Instant.now();
+        }
+        return ResultBean.ok(operatorLoggerService.findAll(operatorLogger, pageable, startTime, endTime));
     }
 
 }

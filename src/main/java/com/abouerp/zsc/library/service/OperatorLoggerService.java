@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,7 +65,7 @@ public class OperatorLoggerService {
         return operatorLogger;
     }
 
-    public Page<OperatorLogger> findAll(OperatorLogger operatorLogger, Pageable pageable) {
+    public Page<OperatorLogger> findAll(OperatorLogger operatorLogger, Pageable pageable, Instant startTime, Instant endTime) {
         if (operatorLogger == null) {
             return operatorLoggerRepository.findAll(pageable);
         }
@@ -84,6 +85,9 @@ public class OperatorLoggerService {
         }
         if (operatorLogger.getOperatingSystem() != null && !operatorLogger.getOperatingSystem().isEmpty()) {
             booleanBuilder.and(qOperatorLogger.operatingSystem.containsIgnoreCase(operatorLogger.getOperatingSystem()));
+        }
+        if (startTime != null) {
+            booleanBuilder.and(qOperatorLogger.createTime.between(startTime, endTime));
         }
         return operatorLoggerRepository.findAll(booleanBuilder, pageable);
     }
