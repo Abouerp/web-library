@@ -20,4 +20,6 @@ public class BookDTO {
     private Double price;
     private String publicationTime;
     private BookCategory bookCategory;
+    private String createBy;
+    private String updateBy;
 }
