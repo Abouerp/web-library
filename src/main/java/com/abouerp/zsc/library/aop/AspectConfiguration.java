@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Abouerp
  */
 @Configuration
-public class LoggingAspectConfiguration {
+public class AspectConfiguration {
 
     @Bean
     public LoggingAspect loggingAspect(OperatorLoggerService operatorLoggerService){
