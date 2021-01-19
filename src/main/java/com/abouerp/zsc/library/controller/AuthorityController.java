@@ -26,9 +26,8 @@ public class AuthorityController {
 
     @GetMapping
     @PreAuthorize("hasAuthority('AUTHORITY_READ')")
-    public ResultBean<EnumMap<Authority, String>> getAll() {
-        EnumMap<Authority, String> map = Authority.mappings;
-        return ResultBean.ok(map);
+    public ResultBean getAll() {
+        return ResultBean.ok(Authority.mappings);
     }
 
     @PatchMapping("/{id}")

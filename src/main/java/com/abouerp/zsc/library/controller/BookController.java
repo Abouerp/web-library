@@ -13,6 +13,7 @@ import com.abouerp.zsc.library.vo.BookVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,7 +75,9 @@ public class BookController {
     }
 
     @GetMapping
-    public ResultBean<Page<BookDTO>> findAll(@PageableDefault Pageable pageable, BookVO bookVO) {
+    public ResultBean<Page<BookDTO>> findAll(
+            @PageableDefault(sort = "createTime", direction = Sort.Direction.DESC) Pageable pageable,
+            BookVO bookVO) {
         return ResultBean.ok(bookService.findAll(bookVO, pageable).map(BookMapper.INSTANCE::toDTO));
     }
 

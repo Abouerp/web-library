@@ -13,6 +13,7 @@ import com.abouerp.zsc.library.service.RoleService;
 import com.abouerp.zsc.library.vo.AdministratorVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -70,7 +71,9 @@ public class AdministratorController {
 
     @GetMapping
 //    @PreAuthorize("hasAuthority('USER_READ')")
-    public ResultBean<Page<AdministratorDTO>> findAll(@PageableDefault Pageable pageable, AdministratorVO administratorVO) {
+    public ResultBean<Page<AdministratorDTO>> findAll(
+            @PageableDefault(sort = "createTime", direction = Sort.Direction.DESC) Pageable pageable,
+            AdministratorVO administratorVO) {
         return ResultBean.ok(administratorService.findAll(administratorVO, pageable).map(AdministratorMapper.INSTANCE::toDTO));
     }
 
