@@ -2,6 +2,7 @@ package com.abouerp.zsc.library.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,6 +23,7 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 @Table
 @Entity
+@ToString
 public class BookDetail implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -30,14 +32,16 @@ public class BookDetail implements Serializable {
     private Integer id;
     //索书号(由对应书籍的code后4位的数字+1)
     private String searchCode;
+    //在馆位置
     private String address;
+    //还书时间
     private String backTime;
     @Enumerated(EnumType.STRING)
     private BookStatus status;
     //借阅次数
-    private int borrowingTimes;
+    private Integer borrowingTimes;
     //续借次数
-    private int renewalTimes;
+    private Integer renewalTimes;
     @ManyToOne
     private Book book;
     @CreatedBy
