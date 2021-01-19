@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookDetailRepository extends JpaRepository<BookDetail, Integer>, QuerydslPredicateExecutor<BookDetail> {
 
-    @Query(value = "select * from bookdetail where book_id = ?1 order by id desc limit 1",
+    @Query(value = "select * from Bookdetail where book_id = ?1 order by id desc limit 1",
             nativeQuery = true)
     BookDetail findLastBookDetailByBookId(Integer id);
 
