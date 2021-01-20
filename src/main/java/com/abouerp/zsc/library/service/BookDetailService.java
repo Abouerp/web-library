@@ -67,7 +67,7 @@ public class BookDetailService {
         return bookDetailRepository.save(update(bookDetail, bookDetailVO));
     }
 
-    public Page<BookDetail> findAll( Pageable pageable, BookDetailVO bookDetailVO) {
+    public Page<BookDetail> findAll(Pageable pageable, BookDetailVO bookDetailVO) {
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         QBookDetail qBookDetail = QBookDetail.bookDetail;
@@ -81,7 +81,7 @@ public class BookDetailService {
             booleanBuilder.and(qBookDetail.status.eq(bookDetailVO.getStatus()));
         }
         if (bookDetailVO.getSearchCode() != null && !bookDetailVO.getSearchCode().isEmpty()) {
-            booleanBuilder.or(qBookDetail.searchCode.like(String.format("&"+bookDetailVO.getSearchCode()+"%")));
+            booleanBuilder.and(qBookDetail.searchCode.like("%" + bookDetailVO.getSearchCode() + "%"));
         }
         return bookDetailRepository.findAll(booleanBuilder, pageable);
     }
