@@ -81,7 +81,7 @@ public class BookDetailService {
             booleanBuilder.and(qBookDetail.status.eq(bookDetailVO.getStatus()));
         }
         if (bookDetailVO.getSearchCode() != null && !bookDetailVO.getSearchCode().isEmpty()) {
-            booleanBuilder.or(qBookDetail.searchCode.containsIgnoreCase(bookDetailVO.getSearchCode()));
+            booleanBuilder.or(qBookDetail.searchCode.like(String.format("&"+bookDetailVO.getSearchCode()+"%")));
         }
         return bookDetailRepository.findAll(booleanBuilder, pageable);
     }
