@@ -13,7 +13,7 @@ public class BookDetailVO {
     private String searchCode;
     //还书时间
     private String backTime;
-    private BookStatus status = BookStatus.IN_LIBRARY;
+    private BookStatus status;
     private Integer borrowingTimes = 0;
     private Integer renewalTimes = 0;
     private Integer bookId;

@@ -4,6 +4,7 @@ import com.abouerp.zsc.library.dao.BookDetailRepository;
 import com.abouerp.zsc.library.dao.BookRepository;
 import com.abouerp.zsc.library.domain.Book;
 import com.abouerp.zsc.library.domain.BookDetail;
+import com.abouerp.zsc.library.domain.BookStatus;
 import com.abouerp.zsc.library.domain.QBookDetail;
 import com.abouerp.zsc.library.exception.BookDetailNotFoundException;
 import com.abouerp.zsc.library.exception.BookNotFoundException;
@@ -54,6 +55,7 @@ public class BookDetailService {
             String finallyCode = String.format(book.getCode() + "%02d", code + 1);
             bookDetail.setSearchCode(finallyCode);
         }
+        bookDetail.setStatus(BookStatus.IN_LIBRARY);
         bookDetail.setBook(book);
         return bookDetailRepository.save(bookDetail);
     }
