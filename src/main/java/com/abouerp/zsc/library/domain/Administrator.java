@@ -38,6 +38,8 @@ public class Administrator implements Serializable {
     private String sex;
     private String md5;
 
+    private String description;
+    private String nickName;
     private Boolean accountNonExpired;
     private Boolean accountNonLocked;
     private Boolean credentialsNonExpired;

@@ -56,7 +56,12 @@ public class AdministratorService {
         if (administrator != null && administrator.getSex() != null && !administrator.getSex().isEmpty()) {
             booleanBuilder.and(qAdministrator.sex.containsIgnoreCase(administrator.getSex()));
         }
-
+        if (administrator != null && administrator.getNickName() != null && !administrator.getNickName().isEmpty()) {
+            booleanBuilder.and(qAdministrator.nickName.containsIgnoreCase(administrator.getNickName()));
+        }
+        if (administrator != null && administrator.getDescription() != null && !administrator.getDescription().isEmpty()) {
+            booleanBuilder.and(qAdministrator.description.containsIgnoreCase(administrator.getDescription()));
+        }
         return administratorRepository.findAll(booleanBuilder, pageable);
     }
 
@@ -64,7 +69,7 @@ public class AdministratorService {
         return administratorRepository.saveAll(administratorList);
     }
 
-    public Administrator getOne(Integer id){
+    public Administrator getOne(Integer id) {
         return administratorRepository.getOne(id);
     }
 
@@ -75,7 +80,6 @@ public class AdministratorService {
 //    public List<Administrator> findByIdIn(List<Integer> ids) {
 //        return administratorRepository.findByIdIn(ids);
 //    }
-
 
 
 }

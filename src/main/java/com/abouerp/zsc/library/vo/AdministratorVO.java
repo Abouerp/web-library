@@ -17,6 +17,8 @@ public class AdministratorVO {
     private String email;
     private String sex;
     private String md5;
+    private String description;
+    private String nickName;
     private List<Integer> role;
     private Boolean accountNonExpired = true;
     private Boolean accountNonLocked = true;

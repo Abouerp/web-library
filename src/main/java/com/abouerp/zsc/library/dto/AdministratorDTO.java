@@ -19,7 +19,8 @@ public class AdministratorDTO {
     private String sex;
     private String md5;
     private Set<Role> roles;
-
+    private String description;
+    private String nickName;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
