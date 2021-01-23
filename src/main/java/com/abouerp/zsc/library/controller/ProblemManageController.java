@@ -46,7 +46,7 @@ public class ProblemManageController {
     }
 
     @GetMapping("/{id}")
-    public ResultBean findById(@PathVariable Integer id){
+    public ResultBean findById(@PathVariable Integer id) {
         return ResultBean.ok(problemManageService.findById(id));
     }
 }
