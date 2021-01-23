@@ -40,9 +40,9 @@ public class Role implements Serializable {
     @Enumerated(EnumType.STRING)
     private Set<Authority> authorities = new HashSet<>();
     @CreatedBy
-    private Integer createBy;
+    private String createBy;
     @LastModifiedBy
-    private Integer updateBy;
+    private String updateBy;
     @CreationTimestamp
     private Instant createTime;
     @UpdateTimestamp
