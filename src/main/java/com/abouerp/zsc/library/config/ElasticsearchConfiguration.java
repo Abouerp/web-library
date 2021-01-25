@@ -20,7 +20,7 @@ public class ElasticsearchConfiguration {
     RestHighLevelClient client() {
         //todo 后期待修改连接
         ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-                .connectedTo("localhost:9200")
+                .connectedTo("elastic:9200")
                 .build();
 
         return RestClients.create(clientConfiguration).rest();
