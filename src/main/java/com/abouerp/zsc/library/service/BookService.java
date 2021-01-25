@@ -1,10 +1,12 @@
 package com.abouerp.zsc.library.service;
 
-import com.abouerp.zsc.library.dao.BookRepository;
+import com.abouerp.zsc.library.repository.BookRepository;
 import com.abouerp.zsc.library.domain.Book;
 import com.abouerp.zsc.library.domain.QBook;
+import com.abouerp.zsc.library.repository.search.BookSearchRepository;
 import com.abouerp.zsc.library.vo.BookVO;
 import com.querydsl.core.BooleanBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,13 +22,23 @@ import java.util.Set;
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final RabbitMQService rabbitMQService;
+    @Autowired
+    BookSearchRepository bookSearchRepository;
 
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository,
+                       RabbitMQService rabbitMQService) {
         this.bookRepository = bookRepository;
+        this.rabbitMQService = rabbitMQService;
     }
 
     public Book save(Book book) {
-        return bookRepository.save(book);
+        book = bookRepository.save(book);
+
+        rabbitMQService.produceCreate(book);
+//        bookSearchRepository.save(book);
+
+        return book;
     }
 
     public Optional<Book> findById(Integer id) {
