@@ -12,7 +12,7 @@
 	<artifactId>libraryManagement</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>libraryManagement</name>
-	<description>Demo project for Spring Boot</description>
+	<description>web-library  for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -96,11 +96,10 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.data</groupId>-->
-<!--			<artifactId>spring-data-elasticsearch</artifactId>-->
-<!--&lt;!&ndash;			<version>3.2.5.RELEASE</version>&ndash;&gt;-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-elasticsearch</artifactId>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.github.vanroy/spring-boot-starter-data-jest -->
 <!--		<dependency>-->
 <!--			<groupId>com.github.vanroy</groupId>-->
@@ -112,7 +111,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
-<!--			<version>2.2.5.RELEASE</version>-->
 		</dependency>
 <!--		解析请求头的参数-->
 		<dependency>
