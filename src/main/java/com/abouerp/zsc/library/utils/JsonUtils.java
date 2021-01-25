@@ -27,7 +27,6 @@ public abstract class JsonUtils {
     @Nullable
     public static <T> T readValue(@Nullable String str, @NonNull Class<T> aClass) {
         try {
-            log.info(str);
             return DEFAULT_MAPPER.readValue(str, aClass);
         } catch (JsonProcessingException e) {
             return null;

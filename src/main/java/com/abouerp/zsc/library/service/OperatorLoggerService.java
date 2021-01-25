@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.service;
 
-import com.abouerp.zsc.library.dao.OperatorLoggerRepository;
+import com.abouerp.zsc.library.repository.OperatorLoggerRepository;
 import com.abouerp.zsc.library.domain.logger.OperatorLogger;
 import com.abouerp.zsc.library.domain.logger.QOperatorLogger;
 import com.abouerp.zsc.library.utils.JsonUtils;

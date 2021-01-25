@@ -1,4 +1,4 @@
-package com.abouerp.zsc.library.dao;
+package com.abouerp.zsc.library.repository;
 
 import com.abouerp.zsc.library.domain.logger.OperatorLogger;
 import org.springframework.data.jpa.repository.JpaRepository;

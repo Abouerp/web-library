@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library;
 
-import com.abouerp.zsc.library.dao.AdministratorRepository;
-import com.abouerp.zsc.library.dao.RoleRepository;
+import com.abouerp.zsc.library.repository.AdministratorRepository;
+import com.abouerp.zsc.library.repository.RoleRepository;
 import com.abouerp.zsc.library.domain.Administrator;
 import com.abouerp.zsc.library.domain.Authority;
 import com.abouerp.zsc.library.domain.Role;
@@ -12,7 +12,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 
-import javax.management.relation.RoleNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;

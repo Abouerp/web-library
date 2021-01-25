@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.service;
 
 
-import com.abouerp.zsc.library.dao.RoleRepository;
+import com.abouerp.zsc.library.repository.RoleRepository;
 import com.abouerp.zsc.library.domain.QRole;
 import com.abouerp.zsc.library.domain.Role;
 import com.abouerp.zsc.library.vo.RoleVO;

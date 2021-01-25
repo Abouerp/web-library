@@ -1,7 +1,6 @@
-package com.abouerp.zsc.library.dao;
+package com.abouerp.zsc.library.repository;
 
 import com.abouerp.zsc.library.domain.BookDetail;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;

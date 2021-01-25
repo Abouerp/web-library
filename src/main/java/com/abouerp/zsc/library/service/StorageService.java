@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.service;
 
-import com.abouerp.zsc.library.dao.StorageRepository;
+import com.abouerp.zsc.library.repository.StorageRepository;
 import com.abouerp.zsc.library.domain.Storage;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

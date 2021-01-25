@@ -1,9 +1,7 @@
 package com.abouerp.zsc.library.service;
 
-import com.abouerp.zsc.library.dao.BookDetailRepository;
+import com.abouerp.zsc.library.repository.BookDetailRepository;
 
-import com.abouerp.zsc.library.domain.BookStatus;
-import com.abouerp.zsc.library.vo.BookDetailVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

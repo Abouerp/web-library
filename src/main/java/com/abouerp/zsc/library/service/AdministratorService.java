@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.service;
 
 
-import com.abouerp.zsc.library.dao.AdministratorRepository;
+import com.abouerp.zsc.library.repository.AdministratorRepository;
 import com.abouerp.zsc.library.domain.Administrator;
 import com.abouerp.zsc.library.domain.QAdministrator;
 import com.abouerp.zsc.library.vo.AdministratorVO;

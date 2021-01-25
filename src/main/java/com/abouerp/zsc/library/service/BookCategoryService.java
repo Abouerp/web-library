@@ -1,19 +1,16 @@
 package com.abouerp.zsc.library.service;
 
-import com.abouerp.zsc.library.dao.BookCategoryRepository;
-import com.abouerp.zsc.library.dao.BookRepository;
+import com.abouerp.zsc.library.repository.BookCategoryRepository;
+import com.abouerp.zsc.library.repository.BookRepository;
 import com.abouerp.zsc.library.domain.Book;
 import com.abouerp.zsc.library.domain.BookCategory;
 import com.abouerp.zsc.library.domain.QBookCategory;
 import com.abouerp.zsc.library.vo.BookCategoryVO;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.service;
 
-import com.abouerp.zsc.library.dao.ProblemManageRepository;
+import com.abouerp.zsc.library.repository.ProblemManageRepository;
 import com.abouerp.zsc.library.domain.ProblemManage;
 import com.abouerp.zsc.library.domain.QProblemManage;
 import com.abouerp.zsc.library.dto.ProblemManageDTO;

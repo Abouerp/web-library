@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.service;
 
-import com.abouerp.zsc.library.dao.LoginLoggerRepository;
+import com.abouerp.zsc.library.repository.LoginLoggerRepository;
 import com.abouerp.zsc.library.domain.logger.LoginLogger;
 import com.abouerp.zsc.library.domain.logger.LoginStatusEnum;
 import com.abouerp.zsc.library.domain.logger.QLoginLogger;

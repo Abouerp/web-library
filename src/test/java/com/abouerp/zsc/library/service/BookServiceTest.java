@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.service;
 
-import com.abouerp.zsc.library.dao.BookRepository;
+import com.abouerp.zsc.library.repository.BookRepository;
 import com.abouerp.zsc.library.domain.Book;
 import org.junit.Test;
 import org.junit.runner.RunWith;

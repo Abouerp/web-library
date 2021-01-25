@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.service;
 
-import com.abouerp.zsc.library.dao.BookDetailRepository;
-import com.abouerp.zsc.library.dao.BookRepository;
+import com.abouerp.zsc.library.repository.BookDetailRepository;
+import com.abouerp.zsc.library.repository.BookRepository;
 import com.abouerp.zsc.library.domain.Book;
 import com.abouerp.zsc.library.domain.BookDetail;
 import com.abouerp.zsc.library.domain.BookStatus;

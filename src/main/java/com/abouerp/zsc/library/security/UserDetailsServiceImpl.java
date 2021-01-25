@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.security;
 
 
-import com.abouerp.zsc.library.dao.AdministratorRepository;
+import com.abouerp.zsc.library.repository.AdministratorRepository;
 import com.abouerp.zsc.library.domain.Administrator;
 import com.abouerp.zsc.library.exception.UnauthorizedException;
 import com.abouerp.zsc.library.mapper.AdministratorMapper;
