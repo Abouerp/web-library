@@ -58,7 +58,7 @@ services:
     networks:
       - library
     ports:
-      - 9200
+      - 9200:9200
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - library_elastic_data:/usr/share/elasticsearch/data
