@@ -22,7 +22,6 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 @Table
 @Entity
-@ToString
 public class BookCategory implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -39,4 +38,17 @@ public class BookCategory implements Serializable {
     private Instant createTime;
     @UpdateTimestamp
     private Instant updateTime;
+
+    @Override
+    public String toString() {
+        return "BookCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", updateBy='" + updateBy + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

@@ -16,5 +16,4 @@ public interface BookDetailRepository extends JpaRepository<BookDetail, Integer>
             nativeQuery = true)
     BookDetail findLastBookDetailByBookId(Integer id);
 
-//    Page<BookDetail>
 }

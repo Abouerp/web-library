@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 @Table
 @Entity
-@ToString
+@Document(indexName = "library_books", type = "book")
 public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -53,4 +54,24 @@ public class Book implements Serializable {
     private Instant createTime;
     @UpdateTimestamp
     private Instant updateTime;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", author='" + author + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", publicationTime='" + publicationTime + '\'' +
+                ", bookCategory=" + bookCategory +
+                ", createBy='" + createBy + '\'' +
+                ", updateBy='" + updateBy + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }
