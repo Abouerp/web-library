@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.regex.Pattern;
 
 /**
  * @author Abouerp
@@ -23,6 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final LoginLoggerService loginLoggerService;
     private final PasswordEncoder passwordEncoder;
     private final HttpServletRequest httpServletRequest;
+    private final String regx = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
 
     public UserDetailsServiceImpl(AdministratorRepository administratorRepository,
                                   LoginLoggerService loginLoggerService,
@@ -36,7 +38,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) {
-        Administrator administrator = administratorRepository.findFirstByUsername(s).orElse(null);
+        Administrator administrator;
+        if (Boolean.TRUE.equals(Pattern.compile(regx).matcher(s).matches())) {
+            administrator = administratorRepository.findFirstByMobile(s).orElse(null);
+        } else if (s.contains("@")) {
+            administrator = administratorRepository.findFirstByEmail(s).orElse(null);
+        } else {
+            administrator = administratorRepository.findFirstByUsername(s).orElse(null);
+        }
         if (administrator == null) {
             loginLoggerService.fail(s, "User don't exist");
             throw new UnauthorizedException();

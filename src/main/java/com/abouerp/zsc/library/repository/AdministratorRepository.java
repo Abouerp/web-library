@@ -17,5 +17,10 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
     @EntityGraph(attributePaths = "roles.authorities")
     Optional<Administrator> findFirstByUsername(String username);
 
+    @EntityGraph(attributePaths = "roles.authorities")
+    Optional<Administrator> findFirstByEmail(String email);
+
+    @EntityGraph(attributePaths = "roles.authorities")
+    Optional<Administrator> findFirstByMobile(String mobile);
 
 }
