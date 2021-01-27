@@ -21,7 +21,6 @@ public class RabbitMqConfiguration {
 
     public final static String EXCHANGE_NAME = "fanout_library";
     public final static String QUEUE_CREATE = "fanout_library_book_create";
-    public final static String QUEUE_UPDATE ="fanout_library_book_update";
     public final static String QUEUE_DELETE ="fanout_library_book_delete";
 
     /**
@@ -37,15 +36,10 @@ public class RabbitMqConfiguration {
         return new Queue(QUEUE_CREATE);
     }
 
-//    @Bean
-//    public Queue queueUpdate() {
-//        return new Queue(QUEUE_UPDATE);
-//    }
-//
-//    @Bean
-//    public Queue queueDelete() {
-//        return new Queue(QUEUE_DELETE);
-//    }
+    @Bean
+    public Queue queueDelete() {
+        return new Queue(QUEUE_DELETE);
+    }
 
     @Bean
     public DirectExchange exchange() {
@@ -58,15 +52,9 @@ public class RabbitMqConfiguration {
                 Binding.DestinationType.QUEUE, EXCHANGE_NAME, "", null);
     }
 
-//    @Bean
-//    public Binding QUEUE_UPDATE(){
-//        return new Binding(QUEUE_UPDATE,
-//                Binding.DestinationType.QUEUE, EXCHANGE_NAME, "", null);
-//    }
-//
-//    @Bean
-//    public Binding QUEUE_DELETE(){
-//        return new Binding(QUEUE_DELETE,
-//                Binding.DestinationType.QUEUE, EXCHANGE_NAME, "delete", null);
-//    }
+    @Bean
+    public Binding QUEUE_DELETE(){
+        return new Binding(QUEUE_DELETE,
+                Binding.DestinationType.QUEUE, EXCHANGE_NAME, "", null);
+    }
 }
