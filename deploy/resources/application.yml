@@ -43,3 +43,5 @@ logging:
 
 storage:
   location: /Library/storage
+elasticsearch:
+  url: elastic:9200

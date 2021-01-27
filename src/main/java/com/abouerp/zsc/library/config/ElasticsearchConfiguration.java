@@ -17,10 +17,10 @@ import org.springframework.data.elasticsearch.client.RestClients;
 public class ElasticsearchConfiguration {
 
     @Bean
-    RestHighLevelClient client() {
-        //todo 后期待修改连接
+    RestHighLevelClient client(ElasticSearchProperties elasticSearchProperties) {
+
         ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-                .connectedTo("elastic:9200")
+                .connectedTo(elasticSearchProperties.getUrl())
                 .build();
 
         return RestClients.create(clientConfiguration).rest();
