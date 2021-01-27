@@ -60,7 +60,7 @@ public class TestController {
                 )
                 .setCreateTime(Instant.now())
                 .setUpdateTime(Instant.now());
-        rabbitTemplate.convertAndSend(RabbitMqConfiguration.EXCHANGE_NAME,"", JsonUtils.writeValueAsString(book));
+        rabbitTemplate.convertAndSend(RabbitMqConfiguration.QUEUE_DELETE, JsonUtils.writeValueAsString(book));
         return ResultBean.ok();
     }
 

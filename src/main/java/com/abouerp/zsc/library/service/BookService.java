@@ -34,10 +34,7 @@ public class BookService {
 
     public Book save(Book book) {
         book = bookRepository.save(book);
-
         rabbitMQService.produceCreate(book);
-//        bookSearchRepository.save(book);
-
         return book;
     }
 
@@ -47,6 +44,7 @@ public class BookService {
 
     public void delete(Set<Integer> ids) {
         bookRepository.deleteByIdIn(ids);
+        rabbitMQService.produceDelete(ids);
     }
 
     public Page<Book> findAll(BookVO bookVO, Pageable pageable) {
