@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class IpResolutionUtilTest {
 
     @Test
-    public void test1(){
+    public void test1() {
         IpResolutionDTO ipResolutionDTO = IpResolutionUtils.resolution("113.100.28.123");
         System.out.println(ipResolutionDTO);
     }

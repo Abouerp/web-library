@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class JsonUtilsTest {
 
     @Test
-    public void test1(){
+    public void test1() {
         Book book = new Book().setAuthor("哈哈")
                 .setCode("xx")
                 .setDescription("sss")
@@ -28,12 +28,12 @@ public class JsonUtilsTest {
                 .setCreateTime(Instant.now());
         String str = JsonUtils.writeValueAsString(book);
         System.out.println(str);
-        Book book1 = JsonUtils.readValue(str,Book.class);
+        Book book1 = JsonUtils.readValue(str, Book.class);
         System.out.println(book1);
     }
 
     @Test
-    public void test2(){
+    public void test2() {
         String regx = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
         System.out.println(Pattern.compile(regx).matcher("18320581956").matches());
     }
