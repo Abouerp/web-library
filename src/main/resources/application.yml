@@ -9,7 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/library?createDatabaseIfNotExist=true&serverTimezone=UTC&characterEncoding=utf8
     username: root
-    password: chenjinjie
+    password: root
 
   jpa:
     generate-ddl: true
@@ -33,9 +33,17 @@ spring:
     redis:
       repositories:
         enabled: false
+  rabbitmq:
+    username: admin
+    password: admin
+    port: 5672
+    host: localhost
+    virtual-host: /
 
 logging:
   level:
     com.abouerp: debug
 storage:
   location: f://upload/Downloads/library/
+elasticsearch:
+  url: localhost:9200
