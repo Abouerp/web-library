@@ -53,11 +53,11 @@ public class BookController {
                 .orElseThrow(BookCategoryNotFoundException::new);
         Book book = BookMapper.INSTANCE.toBook(bookVO);
         Book lastBook = bookService.findLastBookByBookCategoryId(bookCategory.getId());
-        if (lastBook == null){
-            book.setCode(String.format(bookCategory.getCode()+"0001"));
-        }else {
+        if (lastBook == null) {
+            book.setCode(String.format(bookCategory.getCode() + "0001"));
+        } else {
             Integer code = Integer.parseInt(lastBook.getCode().substring(4));
-            String finallyCode = String.format(bookCategory.getCode()+"%04d",code+1);
+            String finallyCode = String.format(bookCategory.getCode() + "%04d", code + 1);
             book.setCode(finallyCode);
         }
         book.setBookCategory(bookCategory);
@@ -68,9 +68,9 @@ public class BookController {
     public ResultBean<BookDTO> update(@PathVariable Integer id, @RequestBody Optional<BookVO> bookVO) {
         Book book = bookService.findById(id).orElseThrow(BookNotFoundException::new);
         Integer bookCategoryId = bookVO.get().getBookCategoryId();
-        bookVO.map(BookVO::getBookCategoryId).ifPresent(it -> {
-            book.setBookCategory(bookCategoryService.findById(bookCategoryId).get());
-        });
+        bookVO.map(BookVO::getBookCategoryId).ifPresent(it ->
+                book.setBookCategory(bookCategoryService.findById(bookCategoryId).get())
+        );
         return ResultBean.ok(bookService.save(update(book, bookVO)));
     }
 
