@@ -61,7 +61,7 @@ public class BookController {
             book.setCode(finallyCode);
         }
         book.setBookCategory(bookCategory);
-        return ResultBean.ok(BookMapper.INSTANCE.toDTO(bookService.save(book)));
+        return ResultBean.ok(bookService.save(book));
     }
 
     @PutMapping("/{id}")
@@ -71,7 +71,7 @@ public class BookController {
         bookVO.map(BookVO::getBookCategoryId).ifPresent(it -> {
             book.setBookCategory(bookCategoryService.findById(bookCategoryId).get());
         });
-        return ResultBean.ok(BookMapper.INSTANCE.toDTO(bookService.save(update(book, bookVO))));
+        return ResultBean.ok(bookService.save(update(book, bookVO)));
     }
 
     @GetMapping
