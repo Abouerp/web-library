@@ -1,5 +1,7 @@
 package com.abouerp.zsc.library.service;
 
+import com.abouerp.zsc.library.dto.BookDTO;
+import com.abouerp.zsc.library.mapper.BookMapper;
 import com.abouerp.zsc.library.repository.BookRepository;
 import com.abouerp.zsc.library.domain.Book;
 import com.abouerp.zsc.library.domain.QBook;
@@ -32,10 +34,11 @@ public class BookService {
         this.rabbitMQService = rabbitMQService;
     }
 
-    public Book save(Book book) {
+    public BookDTO save(Book book) {
         book = bookRepository.save(book);
+        BookDTO bookDTO = BookMapper.INSTANCE.toDTO(book);
         rabbitMQService.produceCreate(book);
-        return book;
+        return bookDTO;
     }
 
     public Optional<Book> findById(Integer id) {
