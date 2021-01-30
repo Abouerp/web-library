@@ -1,8 +1,9 @@
 ## 智能图书管理系统
 
+后端代码Java语言编写
 ~~~
     后端项目基于SpringBoot,SpringSecurity+SpringData JPA,SpringData ElasticSearch,RabbitMQ Mysql进行开发，
-    运行项目前确保rabbitmq和es以及msql的环境有开启
+    tip：运行项目前确保rabbitmq和es以及msql的环境有开启
 ~~~
 
 部署技术利用docker-compose来管理服务
