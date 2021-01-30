@@ -16,10 +16,7 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,11 +36,8 @@ import java.util.Map;
 @RequestMapping("/api/search")
 public class SearchController {
 
-
     private final BookRepository bookRepository;
-
     private final BookSearchRepository bookSearchRepository;
-
     private final RestHighLevelClient restHighLevelClient;
     private static final String INDEX = "library_books";
 
@@ -84,7 +78,7 @@ public class SearchController {
                 .field("publisher")
                 .preTags("<span style='color:red;'>")
                 .postTags("</span>")
-                .requireFieldMatch(false); //是否需要多个字段高亮显示
+                .requireFieldMatch(false); //是否需要多个字段高亮显示 默认是false
         sourceBuilder.highlighter(highlightBuilder);
 
         //执行搜索
