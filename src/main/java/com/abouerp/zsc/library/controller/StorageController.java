@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
-
 /**
  * @author Abouerp
  */
@@ -37,7 +36,7 @@ public class StorageController {
     }
 
     @GetMapping(value = "/preview/{id}")
-    public ResponseEntity<Resource> preview(@PathVariable String id) throws Exception{
+    public ResponseEntity<Resource> preview(@PathVariable String id) throws Exception {
         Storage storage = storageService.findByMd5(id);
         return ResponseEntity
                 .ok()

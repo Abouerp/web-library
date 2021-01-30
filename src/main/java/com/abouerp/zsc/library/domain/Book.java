@@ -50,7 +50,6 @@ public class Book implements Serializable {
     //价格
     private Double price;
     //出版时间
-//    @Field(analyzer = "ik_max_word",type = FieldType.Text)
     private String publicationTime;
     @ManyToOne
     private BookCategory bookCategory;

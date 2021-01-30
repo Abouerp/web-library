@@ -17,13 +17,13 @@ public class RabbitMqConfiguration {
 
     public final static String EXCHANGE_NAME = "fanout_library";
     public final static String QUEUE_CREATE = "fanout_library_book_create";
-    public final static String QUEUE_DELETE ="fanout_library_book_delete";
+    public final static String QUEUE_DELETE = "fanout_library_book_delete";
 
     /**
      * 将消息转为json
      */
     @Bean
-    public MessageConverter messageConverter(){
+    public MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter(JsonUtils.DEFAULT_MAPPER);
     }
 
@@ -43,13 +43,13 @@ public class RabbitMqConfiguration {
     }
 
     @Bean
-    public Binding QUEUE_CREATE(){
+    public Binding QUEUE_CREATE() {
         return new Binding(QUEUE_CREATE,
                 Binding.DestinationType.QUEUE, EXCHANGE_NAME, "", null);
     }
 
     @Bean
-    public Binding QUEUE_DELETE(){
+    public Binding QUEUE_DELETE() {
         return new Binding(QUEUE_DELETE,
                 Binding.DestinationType.QUEUE, EXCHANGE_NAME, "", null);
     }

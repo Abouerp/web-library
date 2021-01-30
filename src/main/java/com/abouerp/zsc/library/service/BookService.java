@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -78,7 +77,4 @@ public class BookService {
         return bookRepository.findLastBookByBookCategoryId(id);
     }
 
-    public List<Book> findByBookCategoryId(Integer id) {
-        return bookRepository.findBookByBookCategoryId(id);
-    }
 }

@@ -28,7 +28,6 @@ public class BookCategory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-//    @Field(analyzer = "ik_max_word",type = FieldType.Text)
     private String name;
     private String code;
     @CreatedBy
