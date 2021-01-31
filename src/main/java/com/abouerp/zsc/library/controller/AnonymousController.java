@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Abouerp
  */
 @RestController
-@RequestMapping("/anonymous")
+@RequestMapping("/api/anonymous")
 public class AnonymousController {
 
     private final ProblemManageService problemManageService;
