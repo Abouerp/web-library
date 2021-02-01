@@ -33,19 +33,19 @@ public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Field(analyzer = "ik_max_word",type = FieldType.Text)
+    @Field(type = FieldType.Text)
     private String name;
     //根据类别（4位code） + 随机4位生成
     private String code;
     private String isbn;
     //作者
-    @Field(analyzer = "ik_max_word",type = FieldType.Text)
+    @Field(type = FieldType.Text)
     private String author;
     //出版社
-    @Field(analyzer = "ik_max_word",type = FieldType.Text)
+    @Field(type = FieldType.Text)
     private String publisher;
     //描述
-    @Field(analyzer = "ik_max_word",type = FieldType.Text)
+    @Field(type = FieldType.Text)
     private String description;
     //价格
     private Double price;

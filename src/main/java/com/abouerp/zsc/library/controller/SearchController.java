@@ -1,10 +1,7 @@
 package com.abouerp.zsc.library.controller;
 
 import com.abouerp.zsc.library.bean.ResultBean;
-import com.abouerp.zsc.library.domain.Book;
 import com.abouerp.zsc.library.exception.BadRequestException;
-import com.abouerp.zsc.library.repository.BookRepository;
-import com.abouerp.zsc.library.repository.search.BookSearchRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -25,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,25 +32,12 @@ import java.util.Map;
 @RequestMapping("/api/search")
 public class SearchController {
 
-    private final BookRepository bookRepository;
-    private final BookSearchRepository bookSearchRepository;
+
     private final RestHighLevelClient restHighLevelClient;
     private static final String INDEX = "library_books";
 
-    public SearchController(BookRepository bookRepository,
-                            BookSearchRepository bookSearchRepository,
-                            RestHighLevelClient restHighLevelClient) {
-        this.bookRepository = bookRepository;
-        this.bookSearchRepository = bookSearchRepository;
+    public SearchController(RestHighLevelClient restHighLevelClient) {
         this.restHighLevelClient = restHighLevelClient;
-    }
-
-    @GetMapping("/sync")
-    public ResultBean tst() {
-        List<Book> list = bookRepository.findAll();
-        bookSearchRepository.deleteAll();
-        bookSearchRepository.saveAll(list);
-        return ResultBean.ok();
     }
 
     @GetMapping("/high")
