@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.service;
 
 import com.abouerp.zsc.library.config.RabbitMqConfiguration;
-import com.abouerp.zsc.library.domain.Book;
+import com.abouerp.zsc.library.domain.book.Book;
 import com.abouerp.zsc.library.repository.search.BookSearchRepository;
 import com.abouerp.zsc.library.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;

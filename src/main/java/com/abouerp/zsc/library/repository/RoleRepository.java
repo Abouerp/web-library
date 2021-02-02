@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.repository;
 
 
-import com.abouerp.zsc.library.domain.Role;
+import com.abouerp.zsc.library.domain.user.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;

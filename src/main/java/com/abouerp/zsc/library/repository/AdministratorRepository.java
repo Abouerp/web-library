@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.repository;
 
 
-import com.abouerp.zsc.library.domain.Administrator;
+import com.abouerp.zsc.library.domain.user.Administrator;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;

@@ -1,9 +1,9 @@
 package com.abouerp.zsc.library.service;
 
 
+import com.abouerp.zsc.library.domain.user.QAdministrator;
 import com.abouerp.zsc.library.repository.AdministratorRepository;
-import com.abouerp.zsc.library.domain.Administrator;
-import com.abouerp.zsc.library.domain.QAdministrator;
+import com.abouerp.zsc.library.domain.user.Administrator;
 import com.abouerp.zsc.library.vo.AdministratorVO;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.data.domain.Page;

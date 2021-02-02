@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.dto;
 
-import com.abouerp.zsc.library.domain.BookCategory;
+import com.abouerp.zsc.library.domain.book.BookCategory;
 import lombok.Data;
 
 

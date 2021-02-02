@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.controller;
 
 import com.abouerp.zsc.library.bean.ResultBean;
-import com.abouerp.zsc.library.domain.BookStatus;
+import com.abouerp.zsc.library.domain.book.BookStatus;
 import com.abouerp.zsc.library.mapper.BookDetailMapper;
 import com.abouerp.zsc.library.service.BookDetailService;
 import com.abouerp.zsc.library.vo.BookDetailVO;

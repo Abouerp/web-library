@@ -1,4 +1,4 @@
-package com.abouerp.zsc.library.domain;
+package com.abouerp.zsc.library.domain.book;
 
 import java.util.EnumMap;
 

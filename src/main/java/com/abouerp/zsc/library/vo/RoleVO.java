@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.vo;
 
-import com.abouerp.zsc.library.domain.Authority;
+import com.abouerp.zsc.library.domain.user.Authority;
 import lombok.Data;
 
 import java.util.HashSet;

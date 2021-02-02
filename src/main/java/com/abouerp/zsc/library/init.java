@@ -2,9 +2,9 @@ package com.abouerp.zsc.library;
 
 import com.abouerp.zsc.library.repository.AdministratorRepository;
 import com.abouerp.zsc.library.repository.RoleRepository;
-import com.abouerp.zsc.library.domain.Administrator;
-import com.abouerp.zsc.library.domain.Authority;
-import com.abouerp.zsc.library.domain.Role;
+import com.abouerp.zsc.library.domain.user.Administrator;
+import com.abouerp.zsc.library.domain.user.Authority;
+import com.abouerp.zsc.library.domain.user.Role;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.CommandLineRunner;

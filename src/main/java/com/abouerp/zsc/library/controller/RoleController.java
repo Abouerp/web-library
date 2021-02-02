@@ -2,7 +2,7 @@ package com.abouerp.zsc.library.controller;
 
 
 import com.abouerp.zsc.library.bean.ResultBean;
-import com.abouerp.zsc.library.domain.Role;
+import com.abouerp.zsc.library.domain.user.Role;
 import com.abouerp.zsc.library.exception.RoleNotFoundException;
 import com.abouerp.zsc.library.mapper.RoleMapper;
 import com.abouerp.zsc.library.service.RoleService;

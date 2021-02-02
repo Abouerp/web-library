@@ -1,5 +1,6 @@
-package com.abouerp.zsc.library.domain;
+package com.abouerp.zsc.library.domain.user;
 
+import com.abouerp.zsc.library.domain.user.Authority;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

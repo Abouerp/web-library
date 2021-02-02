@@ -1,9 +1,9 @@
 package com.abouerp.zsc.library.mapper;
 
 
-import com.abouerp.zsc.library.domain.Administrator;
-import com.abouerp.zsc.library.domain.Authority;
-import com.abouerp.zsc.library.domain.Role;
+import com.abouerp.zsc.library.domain.user.Administrator;
+import com.abouerp.zsc.library.domain.user.Authority;
+import com.abouerp.zsc.library.domain.user.Role;
 import com.abouerp.zsc.library.dto.AdministratorDTO;
 import com.abouerp.zsc.library.security.UserPrincipal;
 import com.abouerp.zsc.library.vo.AdministratorVO;

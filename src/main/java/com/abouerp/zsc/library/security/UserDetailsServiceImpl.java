@@ -2,7 +2,7 @@ package com.abouerp.zsc.library.security;
 
 
 import com.abouerp.zsc.library.repository.AdministratorRepository;
-import com.abouerp.zsc.library.domain.Administrator;
+import com.abouerp.zsc.library.domain.user.Administrator;
 import com.abouerp.zsc.library.exception.UnauthorizedException;
 import com.abouerp.zsc.library.mapper.AdministratorMapper;
 import com.abouerp.zsc.library.service.LoginLoggerService;

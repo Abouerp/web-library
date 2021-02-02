@@ -1,15 +1,9 @@
 package com.abouerp.zsc.library.service;
 
 
-import com.abouerp.zsc.library.config.RabbitMqConfiguration;
-import com.abouerp.zsc.library.domain.Book;
-import com.abouerp.zsc.library.domain.BookCategory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpAdmin;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.FanoutExchange;
-import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

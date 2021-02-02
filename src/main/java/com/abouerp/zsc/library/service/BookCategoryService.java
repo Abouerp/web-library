@@ -1,10 +1,10 @@
 package com.abouerp.zsc.library.service;
 
+import com.abouerp.zsc.library.domain.book.QBookCategory;
 import com.abouerp.zsc.library.repository.BookCategoryRepository;
 import com.abouerp.zsc.library.repository.BookRepository;
-import com.abouerp.zsc.library.domain.Book;
-import com.abouerp.zsc.library.domain.BookCategory;
-import com.abouerp.zsc.library.domain.QBookCategory;
+import com.abouerp.zsc.library.domain.book.Book;
+import com.abouerp.zsc.library.domain.book.BookCategory;
 import com.abouerp.zsc.library.vo.BookCategoryVO;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.data.domain.Page;

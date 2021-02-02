@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.mapper;
 
-import com.abouerp.zsc.library.domain.Book;
+import com.abouerp.zsc.library.domain.book.Book;
 import com.abouerp.zsc.library.dto.BookDTO;
 import com.abouerp.zsc.library.vo.BookVO;
 import org.mapstruct.Mapper;

@@ -1,7 +1,6 @@
 package com.abouerp.zsc.library.dto;
 
-import com.abouerp.zsc.library.domain.Book;
-import com.abouerp.zsc.library.domain.BookStatus;
+import com.abouerp.zsc.library.domain.book.BookStatus;
 import lombok.Data;
 
 /**

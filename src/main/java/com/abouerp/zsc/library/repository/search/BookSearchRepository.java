@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.repository.search;
 
-import com.abouerp.zsc.library.domain.Book;
+import com.abouerp.zsc.library.domain.book.Book;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.transaction.annotation.Transactional;
 

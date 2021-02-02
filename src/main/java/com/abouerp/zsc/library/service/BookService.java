@@ -1,10 +1,10 @@
 package com.abouerp.zsc.library.service;
 
+import com.abouerp.zsc.library.domain.book.QBook;
 import com.abouerp.zsc.library.dto.BookDTO;
 import com.abouerp.zsc.library.mapper.BookMapper;
 import com.abouerp.zsc.library.repository.BookRepository;
-import com.abouerp.zsc.library.domain.Book;
-import com.abouerp.zsc.library.domain.QBook;
+import com.abouerp.zsc.library.domain.book.Book;
 import com.abouerp.zsc.library.repository.search.BookSearchRepository;
 import com.abouerp.zsc.library.vo.BookVO;
 import com.querydsl.core.BooleanBuilder;

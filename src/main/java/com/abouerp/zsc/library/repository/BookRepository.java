@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.repository;
 
-import com.abouerp.zsc.library.domain.Book;
+import com.abouerp.zsc.library.domain.book.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;

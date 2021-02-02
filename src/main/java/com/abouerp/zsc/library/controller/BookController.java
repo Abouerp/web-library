@@ -1,8 +1,8 @@
 package com.abouerp.zsc.library.controller;
 
 import com.abouerp.zsc.library.bean.ResultBean;
-import com.abouerp.zsc.library.domain.Book;
-import com.abouerp.zsc.library.domain.BookCategory;
+import com.abouerp.zsc.library.domain.book.Book;
+import com.abouerp.zsc.library.domain.book.BookCategory;
 import com.abouerp.zsc.library.dto.BookDTO;
 import com.abouerp.zsc.library.exception.BookCategoryNotFoundException;
 import com.abouerp.zsc.library.exception.BookNotFoundException;

@@ -1,14 +1,13 @@
 package com.abouerp.zsc.library.controller;
 
 import com.abouerp.zsc.library.bean.ResultBean;
-import com.abouerp.zsc.library.domain.Authority;
-import com.abouerp.zsc.library.domain.Role;
+import com.abouerp.zsc.library.domain.user.Authority;
+import com.abouerp.zsc.library.domain.user.Role;
 import com.abouerp.zsc.library.exception.RoleNotFoundException;
 import com.abouerp.zsc.library.service.RoleService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.EnumMap;
 import java.util.Set;
 
 /**

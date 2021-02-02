@@ -1,8 +1,8 @@
 package com.abouerp.zsc.library.controller;
 
 import com.abouerp.zsc.library.bean.ResultBean;
-import com.abouerp.zsc.library.domain.Administrator;
-import com.abouerp.zsc.library.domain.Role;
+import com.abouerp.zsc.library.domain.user.Administrator;
+import com.abouerp.zsc.library.domain.user.Role;
 import com.abouerp.zsc.library.dto.AdministratorDTO;
 import com.abouerp.zsc.library.exception.PasswordNotMatchException;
 import com.abouerp.zsc.library.exception.UserNotFoundException;

@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.dto;
 
 
-import com.abouerp.zsc.library.domain.Role;
+import com.abouerp.zsc.library.domain.user.Role;
 import lombok.Data;
 
 import java.util.Set;

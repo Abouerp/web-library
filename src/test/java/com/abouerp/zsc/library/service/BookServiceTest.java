@@ -1,7 +1,7 @@
 package com.abouerp.zsc.library.service;
 
 import com.abouerp.zsc.library.repository.BookRepository;
-import com.abouerp.zsc.library.domain.Book;
+import com.abouerp.zsc.library.domain.book.Book;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

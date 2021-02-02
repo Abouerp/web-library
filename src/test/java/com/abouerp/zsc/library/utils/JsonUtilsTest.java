@@ -1,8 +1,8 @@
 package com.abouerp.zsc.library.utils;
 
 
-import com.abouerp.zsc.library.domain.Book;
-import com.abouerp.zsc.library.domain.BookCategory;
+import com.abouerp.zsc.library.domain.book.Book;
+import com.abouerp.zsc.library.domain.book.BookCategory;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

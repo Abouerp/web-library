@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.vo;
 
-import com.abouerp.zsc.library.domain.BookStatus;
+import com.abouerp.zsc.library.domain.book.BookStatus;
 import lombok.Data;
 
 /**

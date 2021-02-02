@@ -1,6 +1,6 @@
 package com.abouerp.zsc.library.mapper;
 
-import com.abouerp.zsc.library.domain.Role;
+import com.abouerp.zsc.library.domain.user.Role;
 import com.abouerp.zsc.library.vo.RoleVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

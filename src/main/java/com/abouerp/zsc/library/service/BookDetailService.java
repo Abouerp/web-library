@@ -1,11 +1,11 @@
 package com.abouerp.zsc.library.service;
 
+import com.abouerp.zsc.library.domain.book.QBookDetail;
 import com.abouerp.zsc.library.repository.BookDetailRepository;
 import com.abouerp.zsc.library.repository.BookRepository;
-import com.abouerp.zsc.library.domain.Book;
-import com.abouerp.zsc.library.domain.BookDetail;
-import com.abouerp.zsc.library.domain.BookStatus;
-import com.abouerp.zsc.library.domain.QBookDetail;
+import com.abouerp.zsc.library.domain.book.Book;
+import com.abouerp.zsc.library.domain.book.BookDetail;
+import com.abouerp.zsc.library.domain.book.BookStatus;
 import com.abouerp.zsc.library.exception.BookDetailNotFoundException;
 import com.abouerp.zsc.library.exception.BookNotFoundException;
 import com.abouerp.zsc.library.mapper.BookDetailMapper;
