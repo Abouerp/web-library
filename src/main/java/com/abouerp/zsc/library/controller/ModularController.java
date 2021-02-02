@@ -37,9 +37,9 @@ public class ModularController {
         return ResultBean.ok(modularService.save(ModularMapper.INSTANCE.toAdmin(modularVO)));
     }
 
-    @GetMapping("/{id}")
-    public ResultBean findById(@PathVariable Integer id){
-        return ResultBean.ok(modularService.findById(id));
+    @GetMapping("/{name}")
+    public ResultBean findByName(@PathVariable String name){
+        return ResultBean.ok(modularService.findByName(name));
     }
 
     @DeleteMapping("/{id}")

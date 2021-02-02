@@ -31,6 +31,10 @@ public class ModularService {
         return modularRepository.findById(id).orElseThrow(ModularNotFoundException::new);
     }
 
+    public Modular findByName(String name){
+        return modularRepository.findFirstByName(name).orElseThrow(ModularNotFoundException::new);
+    }
+
     public Page<Modular> findAll(Pageable pageable){
         return modularRepository.findAll(pageable);
     }
