@@ -27,7 +27,6 @@ public class StorageService {
                 .setMd5(md5)
                 .setContentType(file.getContentType())
                 .setOriginalFilename(file.getOriginalFilename());
-        log.info("stroage = {}", storage);
         storageRepository.save(storage);
         return null;
     }

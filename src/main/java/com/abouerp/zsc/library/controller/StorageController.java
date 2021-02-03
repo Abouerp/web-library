@@ -34,7 +34,6 @@ public class StorageController {
     @PostMapping
     public ResultBean<String> save(@RequestParam MultipartFile file) {
         String md5 = fileStorageService.upload(file);
-        log.info("上传文件的md5 = {}", md5);
         storageService.save(md5, file);
         return new ResultBean<>(md5);
     }
