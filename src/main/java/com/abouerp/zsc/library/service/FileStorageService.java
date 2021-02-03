@@ -55,6 +55,7 @@ public class FileStorageService {
     }
 
     public String upload(MultipartFile file) {
+        log.info("进入了upload---------------");
         String originalFilename = file.getOriginalFilename();
         if (file.isEmpty()) {
             throw new StorageFileNotFoundException();
@@ -92,6 +93,7 @@ public class FileStorageService {
                 }
                 //保存文件
                 Files.move(temp, dest);
+                log.info("进入了upload, 得到md={}---------------",md5);
                 return md5;
             } catch (IOException e) {
                 throw new StorageFileNotFoundException();
