@@ -4,6 +4,7 @@ import com.abouerp.zsc.library.bean.ResultBean;
 import com.abouerp.zsc.library.domain.Storage;
 import com.abouerp.zsc.library.service.FileStorageService;
 import com.abouerp.zsc.library.service.StorageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * @author Abouerp
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/storage")
 public class StorageController {
@@ -32,6 +34,7 @@ public class StorageController {
     @PostMapping
     public ResultBean<String> save(@RequestParam MultipartFile file) {
         String md5 = fileStorageService.upload(file);
+        log.info("上传文件的md5 = {}", md5);
         storageService.save(md5, file);
         return new ResultBean<>(md5);
     }
