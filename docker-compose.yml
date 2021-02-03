@@ -13,7 +13,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./deploy/resources/application.yml:/app/resources/application.yml:ro
-      - /root/storage/library:/Library
+      - /root/web/storage/Library:/Library
     restart: always
 
   mysql:
