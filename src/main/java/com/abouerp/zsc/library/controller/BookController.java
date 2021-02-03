@@ -19,8 +19,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Abouerp
@@ -56,18 +59,14 @@ public class BookController {
     public ResultBean<BookDTO> save(@RequestBody BookVO bookVO) {
         BookCategory bookCategory = bookCategoryService.findById(bookVO.getBookCategoryId())
                 .orElseThrow(BookCategoryNotFoundException::new);
-        Book book = BookMapper.INSTANCE.toBook(bookVO);
         Book lastBook = bookService.findLastBookByBookCategoryId(bookCategory.getId());
-        if (lastBook == null) {
-            book.setCode(String.format(bookCategory.getCode() + "0001"));
-        } else {
-            Integer code = Integer.parseInt(lastBook.getCode().substring(4));
-            String finallyCode = String.format(bookCategory.getCode() + "%04d", code + 1);
-            book.setCode(finallyCode);
-        }
+        Book book = BookMapper.INSTANCE.toBook(bookVO);
+        book.setCode(getCode(lastBook, bookCategory.getCode()));
         book.setBookCategory(bookCategory);
         return ResultBean.ok(bookService.save(book));
     }
+
+
 
     @PutMapping("/{id}")
     public ResultBean<BookDTO> update(@PathVariable Integer id, @RequestBody Optional<BookVO> bookVO) {
@@ -104,5 +103,39 @@ public class BookController {
     @PostMapping("/excel")
     public ResultBean analysisExcel(@RequestParam MultipartFile file) {
         return ResultBean.ok(fileStorageService.analysisExcel(file));
+    }
+
+    /**
+     *  批量保存图书
+     * @param id    类别id
+     * @param list  图书vo
+     */
+    @PostMapping("/batch/{id}")
+    public ResultBean saveAll(@PathVariable Integer id,@RequestBody List<BookVO> list){
+        BookCategory bookCategory = bookCategoryService.findById(id).orElseThrow(BookCategoryNotFoundException::new);
+        Book preBook = bookService.findLastBookByBookCategoryId(id);
+        Integer code = Integer.parseInt(getCode(preBook,bookCategory.getCode()).substring(4));
+        List<Book> bookList = list.stream().map(BookMapper.INSTANCE::toBook).collect(Collectors.toList());
+        for (Book book :bookList){
+            book.setBookCategory(bookCategory);
+            book.setCode(String.format(bookCategory.getCode() + "%04d", code++ ));
+            bookService.save(book);
+        }
+        return ResultBean.ok();
+    }
+
+    /**
+     * 获取一个图书类别下新增一本书应设置的code字段
+     * @param lastBook      该类别下最后一本书
+     * @param categoryCode
+     * @return
+     */
+    private String getCode(Book lastBook,String categoryCode){
+        if (lastBook == null) {
+            return String.format(categoryCode + "0001");
+        } else {
+            Integer code = Integer.parseInt(lastBook.getCode().substring(4));
+            return String.format(categoryCode + "%04d", code + 1);
+        }
     }
 }
