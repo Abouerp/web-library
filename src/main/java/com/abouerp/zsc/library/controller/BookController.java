@@ -9,6 +9,7 @@ import com.abouerp.zsc.library.exception.BookNotFoundException;
 import com.abouerp.zsc.library.mapper.BookMapper;
 import com.abouerp.zsc.library.service.BookCategoryService;
 import com.abouerp.zsc.library.service.BookService;
+import com.abouerp.zsc.library.service.FileStorageService;
 import com.abouerp.zsc.library.vo.BookVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 import java.util.Set;
@@ -30,10 +32,13 @@ public class BookController {
 
     private final BookService bookService;
     private final BookCategoryService bookCategoryService;
+    private final FileStorageService fileStorageService;
 
-    public BookController(BookService bookService, BookCategoryService bookCategoryService) {
+    public BookController(BookService bookService, BookCategoryService bookCategoryService,
+                          FileStorageService fileStorageService) {
         this.bookService = bookService;
         this.bookCategoryService = bookCategoryService;
+        this.fileStorageService = fileStorageService;
     }
 
     private static Book update(Book book, Optional<BookVO> bookVO) {
@@ -93,4 +98,11 @@ public class BookController {
         return ResultBean.ok(BookMapper.INSTANCE.toDTO(book));
     }
 
+    /**
+     * 解析excel文件中的图书数据返给前端
+     */
+    @PostMapping("/excel")
+    public ResultBean analysisExcel(@RequestParam MultipartFile file) {
+        return ResultBean.ok(fileStorageService.analysisExcel(file));
+    }
 }

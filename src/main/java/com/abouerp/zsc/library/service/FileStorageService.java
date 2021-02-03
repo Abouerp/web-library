@@ -1,8 +1,14 @@
 package com.abouerp.zsc.library.service;
 
 import com.abouerp.zsc.library.config.StorageProperties;
+import com.abouerp.zsc.library.exception.BadRequestException;
+import com.abouerp.zsc.library.exception.ExcelErrorException;
 import com.abouerp.zsc.library.exception.StorageFileNotFoundException;
+import com.abouerp.zsc.library.vo.BookVO;
 import lombok.extern.log4j.Log4j2;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -21,6 +27,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Abouerp
@@ -108,5 +116,50 @@ public class FileStorageService {
 
     public void delete(String hash) {
         FileSystemUtils.deleteRecursively(rootLocation.resolve(hash).toFile());
+    }
+
+    public List<BookVO> analysisExcel(MultipartFile file) {
+        if (file == null) {
+            throw new BadRequestException();
+        }
+        try {
+            InputStream inputStream = file.getInputStream();
+            HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
+            HSSFSheet sheet = workbook.getSheetAt(0);
+            List<BookVO> list = new ArrayList<>();
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                HSSFRow row = sheet.getRow(i);
+                if (null == row) {
+                    continue;
+                }
+                BookVO bookVO = new BookVO();
+                if (row.getCell(0).getStringCellValue() != null) {
+                    bookVO.setName(row.getCell(0).getStringCellValue());
+                }
+                if (row.getCell(1).getStringCellValue() != null) {
+                    bookVO.setIsbn(row.getCell(1).getStringCellValue());
+                }
+                if (row.getCell(2).getStringCellValue() != null) {
+                    bookVO.setAuthor(row.getCell(2).getStringCellValue());
+                }
+                if (row.getCell(3).getStringCellValue() != null) {
+                    bookVO.setPublisher(row.getCell(3).getStringCellValue());
+                }
+                if (row.getCell(4).getStringCellValue() != null) {
+                    bookVO.setDescription(row.getCell(4).getStringCellValue());
+                }
+                if (row.getCell(5).getStringCellValue() != null) {
+                    bookVO.setPrice(Double.parseDouble(row.getCell(5).getStringCellValue()));
+                }
+                if (row.getCell(6).getStringCellValue() != null) {
+                    bookVO.setPublicationTime(row.getCell(6).getStringCellValue());
+                }
+                list.add(bookVO);
+            }
+            return list;
+        } catch (IOException e) {
+            log.info("解析错误--------");
+            throw new ExcelErrorException();
+        }
     }
 }
