@@ -87,8 +87,10 @@ public class FileStorageService {
 
                 Path dest = rootLocation.resolve(md5);
                 if (dest.toFile().exists()) {
+                    //拼接成url，然后查看该文件夹下是否有这个文件
                     return md5;
                 }
+                //保存文件
                 Files.move(temp, dest);
                 return md5;
             } catch (IOException e) {

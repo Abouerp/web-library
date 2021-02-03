@@ -42,6 +42,6 @@ logging:
     com.Abouerp: debug
 
 storage:
-  location: /Library/storage
+  location: /Library
 elasticsearch:
   url: elastic:9200
