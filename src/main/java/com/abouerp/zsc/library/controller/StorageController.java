@@ -4,6 +4,7 @@ import com.abouerp.zsc.library.bean.ResultBean;
 import com.abouerp.zsc.library.domain.Storage;
 import com.abouerp.zsc.library.service.FileStorageService;
 import com.abouerp.zsc.library.service.StorageService;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +43,18 @@ public class StorageController {
                 .ok()
                 .header(HttpHeaders.CONTENT_TYPE, storage.getContentType())
                 .body(fileStorageService.findByHash(storage.getMd5()));
+    }
+
+    /**
+     * 获取book批量插入的excel模板
+     *
+     * @return
+     */
+    @GetMapping("/download/book-model")
+    public ResponseEntity<Resource> getModel() {
+        return ResponseEntity.ok().header(
+                HttpHeaders.CONTENT_DISPOSITION,
+                String.format("attachment; filename=\"%s\"", "book_model.xls")
+        ).body(new ClassPathResource("excel/book_model.xls"));
     }
 }
