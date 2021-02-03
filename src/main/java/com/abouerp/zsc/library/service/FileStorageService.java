@@ -58,6 +58,7 @@ public class FileStorageService {
         log.info("进入了upload---------------");
         String originalFilename = file.getOriginalFilename();
         if (file.isEmpty()) {
+            log.info("进入了upload---（file null）------------");
             throw new StorageFileNotFoundException();
         }
 
@@ -88,6 +89,7 @@ public class FileStorageService {
 
                 Path dest = rootLocation.resolve(md5);
                 if (dest.toFile().exists()) {
+                    log.info("进入了upload---md5已经存在，进入返回------------");
                     //拼接成url，然后查看该文件夹下是否有这个文件
                     return md5;
                 }
