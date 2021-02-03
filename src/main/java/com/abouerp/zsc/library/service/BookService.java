@@ -5,10 +5,8 @@ import com.abouerp.zsc.library.dto.BookDTO;
 import com.abouerp.zsc.library.mapper.BookMapper;
 import com.abouerp.zsc.library.repository.BookRepository;
 import com.abouerp.zsc.library.domain.book.Book;
-import com.abouerp.zsc.library.repository.search.BookSearchRepository;
 import com.abouerp.zsc.library.vo.BookVO;
 import com.querydsl.core.BooleanBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
     private final RabbitMQService rabbitMQService;
-    @Autowired
-    BookSearchRepository bookSearchRepository;
+
 
     public BookService(BookRepository bookRepository,
                        RabbitMQService rabbitMQService) {
