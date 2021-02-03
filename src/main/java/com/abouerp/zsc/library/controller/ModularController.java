@@ -49,8 +49,8 @@ public class ModularController {
     }
 
     @GetMapping
-    public ResultBean findAll(@PageableDefault Pageable pageable){
-        return ResultBean.ok(modularService.findAll(pageable));
+    public ResultBean findAll(@PageableDefault Pageable pageable,ModularVO modularVO){
+        return ResultBean.ok(modularService.findAll(pageable, modularVO));
     }
 
     @PutMapping("/{id}")
