@@ -151,7 +151,7 @@ public class FileStorageService {
                     bookVO.setDescription(row.getCell(4).getStringCellValue());
                 }
                 if (row.getCell(5).getStringCellValue() != null) {
-                    bookVO.setPrice(row.getCell(5).getNumericCellValue());
+                    bookVO.setPrice(Double.parseDouble(row.getCell(5).getStringCellValue()));
                 }
                 if (row.getCell(6).getStringCellValue() != null) {
                     bookVO.setPublicationTime(row.getCell(6).getStringCellValue());
