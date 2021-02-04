@@ -61,6 +61,7 @@ public class SearchController {
                 .field("publisher")
                 .preTags("<span style='color:red;'>")
                 .postTags("</span>")
+                .numOfFragments(0)
                 .requireFieldMatch(false); //是否需要多个字段高亮显示 默认是false
         sourceBuilder.highlighter(highlightBuilder);
 
