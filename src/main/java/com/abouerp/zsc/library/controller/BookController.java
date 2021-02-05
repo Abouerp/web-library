@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Abouerp
@@ -131,8 +130,7 @@ public class BookController {
      * 获取一个图书类别下新增一本书应设置的code字段
      *
      * @param lastBook     该类别下最后一本书
-     * @param categoryCode
-     * @return
+     * @param categoryCode 类别的编码
      */
     private String getCode(Book lastBook, String categoryCode) {
         if (lastBook == null) {

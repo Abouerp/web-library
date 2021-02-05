@@ -22,6 +22,7 @@ public interface BookRepository extends JpaRepository<Book, Integer>, QuerydslPr
 
     /**
      * 找到类别下的最后一本书，用于生成book的code
+     *
      * @param id 类别的id
      * @return 返回该类别的最后一本的book
      */
