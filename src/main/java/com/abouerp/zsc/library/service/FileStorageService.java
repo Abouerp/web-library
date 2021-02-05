@@ -132,7 +132,6 @@ public class FileStorageService {
             HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
             HSSFSheet sheet = workbook.getSheetAt(0);
             List<BookVO> list = new ArrayList<>();
-            log.info(sheet.getLastRowNum());
             for (int i = 1; i <= sheet.getLastRowNum(); i++) {
                 HSSFRow row = sheet.getRow(i);
                 if (Boolean.TRUE.equals(isRowEmpty(row))) {
@@ -170,6 +169,9 @@ public class FileStorageService {
         }
     }
     public static boolean isRowEmpty(Row row) {
+        if (row == null){
+            return true;
+        }
         for (int c = row.getFirstCellNum(); c < row.getLastCellNum(); c++) {
             Cell cell = row.getCell(c);
             if (cell != null && cell.getCellType() != Cell.CELL_TYPE_BLANK){
