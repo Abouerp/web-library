@@ -49,8 +49,6 @@ public class StorageController {
 
     /**
      * 获取book批量插入的excel模板
-     *
-     * @return
      */
     @GetMapping("/download/book-model")
     public ResponseEntity<Resource> getModel() {

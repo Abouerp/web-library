@@ -8,7 +8,10 @@ import com.abouerp.zsc.library.vo.BookVO;
 import lombok.extern.log4j.Log4j2;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFTextbox;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -129,9 +132,10 @@ public class FileStorageService {
             HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
             HSSFSheet sheet = workbook.getSheetAt(0);
             List<BookVO> list = new ArrayList<>();
+            log.info(sheet.getLastRowNum());
             for (int i = 1; i <= sheet.getLastRowNum(); i++) {
                 HSSFRow row = sheet.getRow(i);
-                if (null == row) {
+                if (Boolean.TRUE.equals(isRowEmpty(row))) {
                     continue;
                 }
                 BookVO bookVO = new BookVO();
@@ -150,7 +154,8 @@ public class FileStorageService {
                 if (row.getCell(4).getStringCellValue() != null) {
                     bookVO.setDescription(row.getCell(4).getStringCellValue());
                 }
-                if (row.getCell(5).getStringCellValue() != null) {
+                row.getCell(5).setCellType(Cell.CELL_TYPE_STRING);
+                if (row.getCell(5).getStringCellValue()!= null && !row.getCell(5).getStringCellValue().isEmpty()) {
                     bookVO.setPrice(Double.parseDouble(row.getCell(5).getStringCellValue()));
                 }
                 if (row.getCell(6).getStringCellValue() != null) {
@@ -163,5 +168,14 @@ public class FileStorageService {
             log.info("解析错误--------");
             throw new ExcelErrorException();
         }
+    }
+    public static boolean isRowEmpty(Row row) {
+        for (int c = row.getFirstCellNum(); c < row.getLastCellNum(); c++) {
+            Cell cell = row.getCell(c);
+            if (cell != null && cell.getCellType() != Cell.CELL_TYPE_BLANK){
+                return false;
+            }
+        }
+        return true;
     }
 }
