@@ -56,7 +56,10 @@ public class BookController {
     }
 
     @PostMapping
-    public ResultBean<BookDTO> save(@RequestBody BookVO bookVO) {
+    public ResultBean save(@RequestBody BookVO bookVO) {
+        if (bookService.findByIsbn(bookVO.getIsbn()) != null) {
+            return ResultBean.of(200, "ISBN is exist");
+        }
         BookCategory bookCategory = bookCategoryService.findById(bookVO.getBookCategoryId())
                 .orElseThrow(BookCategoryNotFoundException::new);
         Book lastBook = bookService.findLastBookByBookCategoryId(bookCategory.getId());
@@ -65,7 +68,6 @@ public class BookController {
         book.setBookCategory(bookCategory);
         return ResultBean.ok(bookService.save(book));
     }
-
 
 
     @PutMapping("/{id}")
@@ -106,19 +108,20 @@ public class BookController {
     }
 
     /**
-     *  批量保存图书
-     * @param id    类别id
-     * @param list  图书vo
+     * 批量保存图书
+     *
+     * @param id   类别id
+     * @param list 图书vo
      */
     @PostMapping("/batch/{id}")
-    public ResultBean saveAll(@PathVariable Integer id,@RequestBody List<BookVO> list){
+    public ResultBean saveAll(@PathVariable Integer id, @RequestBody List<BookVO> list) {
         BookCategory bookCategory = bookCategoryService.findById(id).orElseThrow(BookCategoryNotFoundException::new);
         Book preBook = bookService.findLastBookByBookCategoryId(id);
-        Integer code = Integer.parseInt(getCode(preBook,bookCategory.getCode()).substring(4));
+        Integer code = Integer.parseInt(getCode(preBook, bookCategory.getCode()).substring(4));
         List<Book> bookList = list.stream().map(BookMapper.INSTANCE::toBook).collect(Collectors.toList());
-        for (Book book :bookList){
+        for (Book book : bookList) {
             book.setBookCategory(bookCategory);
-            book.setCode(String.format(bookCategory.getCode() + "%04d", code++ ));
+            book.setCode(String.format(bookCategory.getCode() + "%04d", code++));
             bookService.save(book);
         }
         return ResultBean.ok();
@@ -126,11 +129,12 @@ public class BookController {
 
     /**
      * 获取一个图书类别下新增一本书应设置的code字段
-     * @param lastBook      该类别下最后一本书
+     *
+     * @param lastBook     该类别下最后一本书
      * @param categoryCode
      * @return
      */
-    private String getCode(Book lastBook,String categoryCode){
+    private String getCode(Book lastBook, String categoryCode) {
         if (lastBook == null) {
             return String.format(categoryCode + "0001");
         } else {

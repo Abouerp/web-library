@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Abouerp
@@ -28,5 +29,7 @@ public interface BookRepository extends JpaRepository<Book, Integer>, QuerydslPr
     Book findLastBookByBookCategoryId(Integer id);
 
     List<Book> findBookByBookCategoryId(Integer id);
+
+    Optional<Book> findByIsbn(String isbn);
 
 }
