@@ -37,7 +37,6 @@ public class LoginLogger implements Serializable {
     private String description;
     @Enumerated(EnumType.STRING)
     private LoginStatusEnum status;
-
     @CreationTimestamp
     private Instant createTime;
     @UpdateTimestamp
