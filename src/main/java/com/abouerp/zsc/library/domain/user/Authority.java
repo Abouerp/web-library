@@ -34,6 +34,16 @@ public enum Authority {
     BOOK_DETAIL_UPDATE("图书详细更新"),
     BOOK_DETAIL_DELETE("图书详细删除"),
 
+    MODULAR_CREATE("模块创建"),
+    MODULAR_READ("模块查看"),
+    MODULAR_UPDATE("模块更新"),
+    MODULAR_DELETE("模块删除"),
+
+    PROBLEM_MANAGE_CREATE("问题管理创建"),
+    PROBLEM_MANAGE_READ("问题管理查看"),
+    PROBLEM_MANAGE_UPDATE("问题管理更新"),
+    PROBLEM_MANAGE_DELETE("问题管理删除"),
+
 
     OPERATOR_LOGGER_READ("操作日志查看"),
     AUTHORITY_READ("权限查看");
