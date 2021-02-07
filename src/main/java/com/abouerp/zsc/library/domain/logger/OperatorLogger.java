@@ -35,6 +35,8 @@ public class OperatorLogger implements Serializable {
     private String path;
     private String operatingSystem;
     private String client;
+    @Enumerated(EnumType.STRING)
+    private OperatorStatusEnum status;
     @CreationTimestamp
     private Instant createTime;
     private Long executionTime;

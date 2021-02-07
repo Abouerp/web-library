@@ -1,5 +1,6 @@
 package com.abouerp.zsc.library.service;
 
+import com.abouerp.zsc.library.domain.logger.OperatorStatusEnum;
 import com.abouerp.zsc.library.repository.OperatorLoggerRepository;
 import com.abouerp.zsc.library.domain.logger.OperatorLogger;
 import com.abouerp.zsc.library.domain.logger.QOperatorLogger;
@@ -37,12 +38,16 @@ public class OperatorLoggerService {
         this.httpServletRequest = httpServletRequest;
     }
 
+    /**
+     * @param executionTime  执行时间
+     */
     @Async
-    public void recode(JoinPoint joinPoint, long executionTime) {
+    public void recode(JoinPoint joinPoint, long executionTime, OperatorStatusEnum status) {
         if (httpServletRequest.getRequestURI().equals("/api/logger/operator") || httpServletRequest.getRequestURI().equals("/api/user/me") || httpServletRequest.getRequestURI().equals("/api/logger/login")) {
             return;
         }
         OperatorLogger operatorLogger = toOperatorLogger(joinPoint, executionTime);
+        operatorLogger.setStatus(status);
         operatorLoggerRepository.save(operatorLogger);
     }
 
