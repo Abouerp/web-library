@@ -77,6 +77,6 @@ public class BookService {
 
 
     public Book findByIsbn(String isbn) {
-        return bookRepository.findByIsbn(isbn).orElseThrow(BookNotFoundException::new);
+        return bookRepository.findByIsbn(isbn).orElse(null);
     }
 }
