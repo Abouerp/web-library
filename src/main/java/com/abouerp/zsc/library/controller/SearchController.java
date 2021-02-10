@@ -56,7 +56,7 @@ public class SearchController {
                 .field("description")
                 .field("author")
                 .field("publisher")
-                .preTags("<em data=\" ")
+                .preTags("<em data=\"")
                 .postTags("\"></em>")
                 .numOfFragments(0)
                 .requireFieldMatch(true); //是否需要多个字段高亮显示 默认是false
