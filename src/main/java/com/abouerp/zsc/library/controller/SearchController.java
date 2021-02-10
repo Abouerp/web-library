@@ -82,7 +82,6 @@ public class SearchController {
             HighlightField author = highlightFields.get("author");
             HighlightField publisher = highlightFields.get("publisher");
             Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-            list.add(sourceAsMap);
             //解析高亮字段，将原来的字段换为高亮字段即可
             if (name != null) {
                 Text[] fragments = name.fragments();
