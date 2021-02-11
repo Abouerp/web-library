@@ -16,4 +16,6 @@ public class ProblemManageDTO {
     private String updateBy;
     private Instant createTime;
     private Instant updateTime;
+    private Integer sort;
+    private String icon;
 }

@@ -11,4 +11,6 @@ public class ProblemManageVO {
     private String title;
     private String text;
     private Boolean show;
+    private Integer sort;
+    private String icon;
 }
