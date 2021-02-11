@@ -81,6 +81,7 @@ public class SearchController {
             HighlightField description = highlightFields.get("description");
             HighlightField author = highlightFields.get("author");
             HighlightField publisher = highlightFields.get("publisher");
+            log.info(" score = {}",hit.getScore());
             Map<String, Object> sourceAsMap = hit.getSourceAsMap();
             //解析高亮字段，将原来的字段换为高亮字段即可
             if (name != null) {
@@ -89,6 +90,7 @@ public class SearchController {
                 for (Text text : fragments) {
                     n_name += text;
                 }
+                log.info("name = {}", sourceAsMap.get("name"));
                 sourceAsMap.put("name", n_name);//高亮字段替换原来内容
                 list.add(sourceAsMap);
                 continue;
