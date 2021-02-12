@@ -27,7 +27,7 @@ public class ProblemManage implements Serializable {
     private Integer id;
     private String title;
     private Boolean show;
-    private Integer sort;
+    private Integer sortValue;
     @Lob
     private String icon;
     @Lob

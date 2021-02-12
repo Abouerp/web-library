@@ -30,7 +30,7 @@ public class ProblemManageService {
         problemManageVO.map(ProblemManageVO::getTitle).ifPresent(problemManage::setTitle);
         problemManageVO.map(ProblemManageVO::getText).ifPresent(problemManage::setText);
         problemManageVO.map(ProblemManageVO::getShow).ifPresent(problemManage::setShow);
-        problemManageVO.map(ProblemManageVO::getSort).ifPresent(problemManage::setSort);
+        problemManageVO.map(ProblemManageVO::getSortValue).ifPresent(problemManage::setSortValue);
         problemManageVO.map(ProblemManageVO::getIcon).ifPresent(problemManage::setIcon);
         return problemManage;
     }
