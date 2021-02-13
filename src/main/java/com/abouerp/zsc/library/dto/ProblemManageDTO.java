@@ -11,6 +11,7 @@ import java.time.Instant;
 public class ProblemManageDTO {
     private Integer id;
     private String title;
+    private String text;
     private Boolean show;
     private String createBy;
     private String updateBy;
