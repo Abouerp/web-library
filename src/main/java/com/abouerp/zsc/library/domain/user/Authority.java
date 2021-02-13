@@ -46,6 +46,7 @@ public enum Authority {
 
 
     OPERATOR_LOGGER_READ("操作日志查看"),
+    LOGIN_LOGGER_READ("登陆日志查看"),
     AUTHORITY_READ("权限查看");
 
     public static final EnumMap<Authority, String> mappings = new EnumMap<>(Authority.class);
