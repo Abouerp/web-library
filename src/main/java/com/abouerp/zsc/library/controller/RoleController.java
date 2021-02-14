@@ -74,4 +74,10 @@ public class RoleController {
     ) {
         return ResultBean.ok(roleService.findAll(roleVO, pageable));
     }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_READ')")
+    public ResultBean findById(@PathVariable Integer id){
+        return ResultBean.ok(roleService.findById(id).orElseThrow(RoleNotFoundException::new));
+    }
 }
