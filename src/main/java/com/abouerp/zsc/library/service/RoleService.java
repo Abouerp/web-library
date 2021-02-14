@@ -52,4 +52,8 @@ public class RoleService {
         }
         return roleRepository.findAll(booleanBuilder, pageable);
     }
+
+    public Role findFirstByIsDefault(Boolean isDefault) {
+        return roleRepository.findFirstByIsDefault(isDefault).orElse(null);
+    }
 }

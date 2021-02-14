@@ -45,6 +45,12 @@ public class RoleController {
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_CREATE')")
     public ResultBean<Role> save(@RequestBody RoleVO roleVO) {
+        if (roleVO.getIsDefault() != null && Boolean.TRUE.equals(roleVO.getIsDefault())) {
+            Role role = roleService.findFirstByIsDefault(roleVO.getIsDefault());
+            if (role != null) {
+                return ResultBean.of(200, "DEFAULT ROLE EXIST");
+            }
+        }
         return ResultBean.ok(roleService.save(RoleMapper.INSTANCE.toRole(roleVO)));
     }
 
@@ -77,7 +83,7 @@ public class RoleController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_READ')")
-    public ResultBean findById(@PathVariable Integer id){
+    public ResultBean findById(@PathVariable Integer id) {
         return ResultBean.ok(roleService.findById(id).orElseThrow(RoleNotFoundException::new));
     }
 }
