@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author Abouerp
  */
@@ -15,5 +17,8 @@ public interface BookDetailRepository extends JpaRepository<BookDetail, Integer>
     @Query(value = "select * from BookDetail where book_id = ?1 order by id desc limit 1",
             nativeQuery = true)
     BookDetail findLastBookDetailByBookId(Integer id);
+
+    @Query(value = "select * from  BookDetail  where book_id = ?1",nativeQuery = true)
+    List<BookDetail> findByBookId(Integer id);
 
 }

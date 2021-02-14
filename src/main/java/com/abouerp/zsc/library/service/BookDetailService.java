@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -86,6 +87,10 @@ public class BookDetailService {
             booleanBuilder.and(qBookDetail.searchCode.like("%" + bookDetailVO.getSearchCode() + "%"));
         }
         return bookDetailRepository.findAll(booleanBuilder, pageable);
+    }
+
+    public List<BookDetail> findByBookId(Integer id){
+        return bookDetailRepository.findByBookId(id);
     }
 
 }
