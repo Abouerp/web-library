@@ -13,6 +13,8 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +45,9 @@ public class SearchController {
         SearchRequest searchRequest = new SearchRequest(INDEX);
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
-        //分页
-        sourceBuilder.from(pageable.getPageNumber());
-        sourceBuilder.size(pageable.getPageSize());
+        //分页,利用pageImpl进行分页
+//        sourceBuilder.from(pageable.getPageNumber());
+//        sourceBuilder.size(pageable.getPageSize());
 
         //匹配
         sourceBuilder.query(QueryBuilders.multiMatchQuery(keyword, "name", "description", "author", "publisher"));
@@ -125,7 +127,7 @@ public class SearchController {
                 list.add(sourceAsMap);
             }
         }
-        return ResultBean.ok(list);
+        return ResultBean.ok(new PageImpl(list, pageable, list.size()));
 
     }
 
