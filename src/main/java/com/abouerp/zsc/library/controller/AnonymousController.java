@@ -3,8 +3,6 @@ package com.abouerp.zsc.library.controller;
 import com.abouerp.zsc.library.bean.ResultBean;
 import com.abouerp.zsc.library.domain.book.Book;
 import com.abouerp.zsc.library.domain.book.BookDetail;
-import com.abouerp.zsc.library.dto.BookDetailDTO;
-import com.abouerp.zsc.library.exception.BookNotFoundException;
 import com.abouerp.zsc.library.mapper.BookDetailMapper;
 import com.abouerp.zsc.library.repository.BookRepository;
 import com.abouerp.zsc.library.repository.search.BookSearchRepository;
@@ -62,14 +60,20 @@ public class AnonymousController {
         return ResultBean.ok(problemManageService.findAll(pageable, problemManageVO));
     }
 
+    /**
+     * 获取图书的详细信息，包括馆藏信息
+     * @param id  图书的id
+     */
     @GetMapping("/book/{id}")
     public ResultBean findBookAllMessageById(@PathVariable Integer id) {
         List<BookDetail> bookDetails = bookDetailService.findByBookId(id);
         Map<String, Object> map = new HashMap<>();
         if (bookDetails.size() != 0) {
             map.put("book", bookDetails.get(0).getBook());
+            map.put("detail", bookDetails.stream().map(BookDetailMapper.INSTANCE::toDTO).collect(Collectors.toList()));
+        }else {
+            map.put("book",bookRepository.findById(id));
         }
-        map.put("detail", bookDetails.stream().map(BookDetailMapper.INSTANCE::toDTO).collect(Collectors.toList()));
         return ResultBean.ok(map);
     }
 }
