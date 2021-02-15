@@ -62,7 +62,8 @@ public class AnonymousController {
 
     /**
      * 获取图书的详细信息，包括馆藏信息
-     * @param id  图书的id
+     *
+     * @param id 图书的id
      */
     @GetMapping("/book/{id}")
     public ResultBean findBookAllMessageById(@PathVariable Integer id) {
@@ -71,8 +72,8 @@ public class AnonymousController {
         if (bookDetails.size() != 0) {
             map.put("book", bookDetails.get(0).getBook());
             map.put("detail", bookDetails.stream().map(BookDetailMapper.INSTANCE::toDTO).collect(Collectors.toList()));
-        }else {
-            map.put("book",bookRepository.findById(id));
+        } else {
+            map.put("book", bookRepository.findById(id));
         }
         return ResultBean.ok(map);
     }
