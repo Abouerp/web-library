@@ -14,6 +14,7 @@ import com.abouerp.zsc.library.service.BookService;
 import com.abouerp.zsc.library.service.FileStorageService;
 import com.abouerp.zsc.library.utils.IpResolutionUtils;
 import com.abouerp.zsc.library.utils.JsonUtils;
+import com.abouerp.zsc.library.utils.RandomDateUtils;
 import com.abouerp.zsc.library.utils.SecurityUtils;
 import com.abouerp.zsc.library.vo.BookVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -220,6 +221,7 @@ public class BookController {
 
         List<ReptileBookDTO.Result> docses = message.getDocs();
         Random random = new Random();
+
         List<Book> list = new ArrayList<>();
         for (ReptileBookDTO.Result docs: docses){
             Book book = new Book()
@@ -230,7 +232,7 @@ public class BookController {
                     .setPublisher(docs.getPublisher())
                     .setDescription(docs.getU_abstract())
                     .setPrice(random.nextDouble()*100)
-                    .setPublicationTime(docs.getU_publish())
+                    .setPublicationTime(RandomDateUtils.dateTime())
                     .setBookCategory(bookCategory)
                     .setCreateTime(Instant.now())
                     .setCreateBy(SecurityUtils.getCurrentUserLogin());

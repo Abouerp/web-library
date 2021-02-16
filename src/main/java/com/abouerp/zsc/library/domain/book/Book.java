@@ -46,6 +46,7 @@ public class Book implements Serializable {
     private String publisher;
     //描述
     @Field(type = FieldType.Text)
+    @Lob
     private String description;
     //价格
     private Double price;
