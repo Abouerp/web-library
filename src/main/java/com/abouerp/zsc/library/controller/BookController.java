@@ -221,7 +221,7 @@ public class BookController {
 
         List<ReptileBookDTO.Result> docses = message.getDocs();
         Random random = new Random();
-
+        List<Book> list = new ArrayList<>();
         for (ReptileBookDTO.Result docs: docses){
             Book book = new Book()
                     .setName(docs.getTitle())
@@ -236,7 +236,8 @@ public class BookController {
                     .setCreateTime(Instant.now())
                     .setCreateBy(SecurityUtils.getCurrentUserLogin());
             bookService.save(book);
+            list.add(book);
         }
-        return ResultBean.ok();
+        return ResultBean.ok(list);
     }
 }
