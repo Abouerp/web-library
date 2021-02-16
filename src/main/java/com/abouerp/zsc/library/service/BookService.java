@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -78,5 +79,9 @@ public class BookService {
 
     public Book findByIsbn(String isbn) {
         return bookRepository.findByIsbn(isbn).orElse(null);
+    }
+
+    public List<Book> findByNameLike(String keyword){
+        return bookRepository.findByNameLike(keyword);
     }
 }

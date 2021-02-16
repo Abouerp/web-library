@@ -33,4 +33,6 @@ public interface BookRepository extends JpaRepository<Book, Integer>, QuerydslPr
 
     Optional<Book> findByIsbn(String isbn);
 
+    List<Book> findByNameLike(String keyword);
+
 }
