@@ -1,7 +1,9 @@
 package com.abouerp.zsc.library.controller;
 
 import com.abouerp.zsc.library.bean.ResultBean;
+import com.abouerp.zsc.library.domain.book.Book;
 import com.abouerp.zsc.library.exception.BadRequestException;
+import com.abouerp.zsc.library.repository.search.BookSearchRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -14,13 +16,15 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,10 +37,13 @@ public class SearchController {
 
 
     private final RestHighLevelClient restHighLevelClient;
+    private final BookSearchRepository bookSearchRepository;
     private static final String INDEX = "library_books";
 
-    public SearchController(RestHighLevelClient restHighLevelClient) {
+    public SearchController(RestHighLevelClient restHighLevelClient,
+                            BookSearchRepository bookSearchRepository) {
         this.restHighLevelClient = restHighLevelClient;
+        this.bookSearchRepository = bookSearchRepository;
     }
 
     @GetMapping("/high")
@@ -131,30 +138,16 @@ public class SearchController {
 
     }
 
-//    @GetMapping
-//    public ResultBean ttt(@RequestParam String keyword) {
-//        SearchRequest searchRequest = new SearchRequest(INDEX);
-//        searchRequest.types("log");
-//        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-//
-//        //分页
-//        sourceBuilder.from(0);
-//        sourceBuilder.size(10);
-//
-//        //匹配
-//        searchRequest.source(sourceBuilder);
-//        SearchResponse searchResponse;
-//        try {
-//            searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
-//        } catch (IOException e) {
-//            log.info("搜索查询出错-------------------");
-//            throw new BadRequestException();
-//        }
-//        ArrayList<Map<String, Object>> list = new ArrayList<>();
-//        for (SearchHit hit : searchResponse.getHits().getHits()) {
-//            Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-//            list.add(sourceAsMap);
-//        }
-//        return ResultBean.ok(list);
-//    }
+    @GetMapping("/tip")
+    public ResultBean getTip(@RequestParam String keyword,@PageableDefault Pageable pageable){
+        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withIndices(INDEX)
+                .withQuery(QueryBuilders.boolQuery()
+                                        .must(QueryBuilders.matchQuery("name",keyword))
+                )
+                .withHighlightFields(new HighlightBuilder.Field(keyword))
+                .withPageable(pageable)
+                .build();
+        return ResultBean.ok(bookSearchRepository.search(searchQuery).getContent().stream().map(Book::getName));
+    }
 }
