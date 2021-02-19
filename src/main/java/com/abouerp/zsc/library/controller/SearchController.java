@@ -46,6 +46,10 @@ public class SearchController {
         this.bookSearchRepository = bookSearchRepository;
     }
 
+    /**
+     * 全局搜索
+     * @param keyword
+     */
     @GetMapping("/high")
     public ResultBean search(@RequestParam String keyword, @PageableDefault Pageable pageable) {
         //创建请求
@@ -53,7 +57,7 @@ public class SearchController {
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
         //分页,利用pageImpl进行分页
-        sourceBuilder.from(pageable.getPageNumber()*pageable.getPageSize());
+        sourceBuilder.from(pageable.getPageNumber() * pageable.getPageSize());
         sourceBuilder.size(pageable.getPageSize());
 
         //匹配
@@ -138,12 +142,16 @@ public class SearchController {
 
     }
 
+    /**
+     * 联想搜索
+     * @param keyword
+     */
     @GetMapping("/tip")
-    public ResultBean getTip(@RequestParam String keyword,@PageableDefault Pageable pageable){
+    public ResultBean getTip(@RequestParam String keyword, @PageableDefault Pageable pageable) {
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withIndices(INDEX)
                 .withQuery(QueryBuilders.boolQuery()
-                                        .must(QueryBuilders.matchQuery("name",keyword))
+                        .must(QueryBuilders.matchQuery("name", keyword))
                 )
                 .withHighlightFields(new HighlightBuilder.Field(keyword))
                 .withPageable(pageable)
