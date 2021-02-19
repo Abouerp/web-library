@@ -9,7 +9,7 @@
 
 全局搜索：ElasticSearch，数据的同步利用RabbitMQ消息中间件来同步mysql数据到es
 
-**bug记录**
+**学习记录**
 
 关于SpringData ElasticSearch： 
  
