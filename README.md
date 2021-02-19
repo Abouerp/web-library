@@ -2,7 +2,7 @@
 
 后端代码Java语言编写
 ~~~
-    后端项目基于SpringBoot,SpringSecurity+SpringData JPA,SpringData ElasticSearch,RabbitMQ Mysql进行开发，
+    后端项目基于SpringBoot,SpringSecurity+Spring Data JPA,Spring Data ElasticSearch,RabbitMQ Mysql进行开发，
     tip：运行项目前确保rabbitmq和es以及msql的环境有开启
 ~~~
 

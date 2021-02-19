@@ -46,8 +46,8 @@ public class SearchController {
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
 
         //分页,利用pageImpl进行分页
-//        sourceBuilder.from(pageable.getPageNumber());
-//        sourceBuilder.size(pageable.getPageSize());
+        sourceBuilder.from(pageable.getPageNumber()*pageable.getPageSize());
+        sourceBuilder.size(pageable.getPageSize());
 
         //匹配
         sourceBuilder.query(QueryBuilders.multiMatchQuery(keyword, "name", "description", "author", "publisher"));
@@ -127,7 +127,7 @@ public class SearchController {
                 list.add(sourceAsMap);
             }
         }
-        return ResultBean.ok(new PageImpl(list, pageable, list.size()));
+        return ResultBean.ok(new PageImpl(list, pageable, searchResponse.getHits().getTotalHits()));
 
     }
 
