@@ -12,6 +12,7 @@ import com.abouerp.zsc.library.vo.BookCategoryVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class BookCategoryController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('BOOK_CATEGORY_CREATE')")
     public ResultBean<BookCategoryDTO> save(@RequestBody BookCategoryVO bookCategoryVO) {
         BookCategory exist = bookCategoryService.findByCode(bookCategoryVO.getCode());
         if (exist != null) {
@@ -48,6 +50,7 @@ public class BookCategoryController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('BOOK_CATEGORY_UPDATE')")
     public ResultBean<BookCategoryDTO> update(@PathVariable Integer id,
                                               @RequestBody Optional<BookCategoryVO> bookCategoryVO) {
         BookCategory bookCategory = bookCategoryService.findById(id)
@@ -57,6 +60,7 @@ public class BookCategoryController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('BOOK_CATEGORY_READ')")
     public ResultBean<Page<BookCategoryDTO>> findAll(
             @PageableDefault Pageable pageable,
             BookCategoryVO bookCategoryVO) {
@@ -64,6 +68,7 @@ public class BookCategoryController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('BOOK_CATEGORY_DELETE')")
     public ResultBean delete(@PathVariable Integer id) {
         List<BookDTO> dtoList = bookCategoryService.delete(id).stream().map(BookMapper.INSTANCE::toDTO).collect(Collectors.toList());
         if (dtoList.size() == 0) {
@@ -73,6 +78,7 @@ public class BookCategoryController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('BOOK_CATEGORY_READ')")
     public ResultBean<BookCategoryDTO> findById(@PathVariable Integer id) {
         BookCategory bookCategory = bookCategoryService.findById(id).orElseThrow(BookCategoryNotFoundException::new);
         return ResultBean.ok(BookCategoryMapper.INSTANCE.toDTO(bookCategory));

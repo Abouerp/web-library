@@ -70,14 +70,14 @@ public class AdministratorController {
     }
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('USER_READ')")
+    @PreAuthorize("hasAuthority('USER_READ')")
     public ResultBean<Page<AdministratorDTO>> findAll(
             @PageableDefault(sort = "createTime", direction = Sort.Direction.DESC) Pageable pageable,
             AdministratorVO administratorVO) {
         return ResultBean.ok(administratorService.findAll(administratorVO, pageable).map(AdministratorMapper.INSTANCE::toDTO));
     }
 
-    //    @PreAuthorize("hasAuthority('USER_CREATE')")
+    @PreAuthorize("hasAuthority('USER_CREATE')")
     @PostMapping
     public ResultBean<AdministratorDTO> save(@RequestBody AdministratorVO adminVO) {
         Administrator administrator = administratorService.findFirstByUsername(adminVO.getUsername()).orElse(null);
@@ -104,7 +104,7 @@ public class AdministratorController {
     }
 
     @DeleteMapping("/{id}")
-//    @PreAuthorize("hasAuthority('USER_DELETE')")
+    @PreAuthorize("hasAuthority('USER_DELETE')")
     public ResultBean<Object> delete(@PathVariable Integer id) {
         administratorService.deleteById(id);
         return ResultBean.ok();
@@ -127,6 +127,7 @@ public class AdministratorController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('USER_READ')")
     public ResultBean<AdministratorDTO> findById(@PathVariable Integer id) {
         Administrator administrator = administratorService.findById(id).orElseThrow(UserNotFoundException::new);
         return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administrator));
