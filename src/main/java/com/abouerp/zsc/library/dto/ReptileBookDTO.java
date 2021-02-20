@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * 深圳图书馆的接口返回数据
  * @author Abouerp
  */
 @Data

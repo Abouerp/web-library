@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 
 /**
+ * IP解析的返回数据
  * @author Abouerp
  */
 @Data
