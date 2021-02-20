@@ -82,7 +82,7 @@ public class AdministratorController {
     public ResultBean<AdministratorDTO> save(@RequestBody AdministratorVO adminVO) {
         Administrator administrator = administratorService.findFirstByUsername(adminVO.getUsername()).orElse(null);
         if (administrator != null) {
-            return ResultBean.of(200, "User id Exist");
+            return ResultBean.of(200, "User is Exist");
         }
         Set<Role> roles = roleService.findByIdIn(adminVO.getRole()).stream().collect(Collectors.toSet());
         adminVO.setPassword(passwordEncoder.encode(adminVO.getPassword()));
@@ -131,4 +131,6 @@ public class AdministratorController {
         Administrator administrator = administratorService.findById(id).orElseThrow(UserNotFoundException::new);
         return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administrator));
     }
+
+
 }

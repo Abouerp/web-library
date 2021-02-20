@@ -3,23 +3,24 @@ package com.abouerp.zsc.library.controller;
 import com.abouerp.zsc.library.bean.ResultBean;
 import com.abouerp.zsc.library.domain.book.Book;
 import com.abouerp.zsc.library.domain.book.BookDetail;
+import com.abouerp.zsc.library.domain.user.Administrator;
+import com.abouerp.zsc.library.domain.user.Role;
+import com.abouerp.zsc.library.mapper.AdministratorMapper;
 import com.abouerp.zsc.library.mapper.BookDetailMapper;
 import com.abouerp.zsc.library.repository.BookRepository;
 import com.abouerp.zsc.library.repository.search.BookSearchRepository;
+import com.abouerp.zsc.library.service.AdministratorService;
 import com.abouerp.zsc.library.service.BookDetailService;
 import com.abouerp.zsc.library.service.ProblemManageService;
+import com.abouerp.zsc.library.service.RoleService;
 import com.abouerp.zsc.library.vo.ProblemManageVO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -34,15 +35,24 @@ public class AnonymousController {
     private final BookRepository bookRepository;
     private final BookDetailService bookDetailService;
     private final BookSearchRepository bookSearchRepository;
+    private final AdministratorService administratorService;
+    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     public AnonymousController(ProblemManageService problemManageService,
                                BookRepository bookRepository,
                                BookSearchRepository bookSearchRepository,
-                               BookDetailService bookDetailService) {
+                               BookDetailService bookDetailService,
+                               AdministratorService administratorService,
+                               RoleService roleService,
+                               PasswordEncoder passwordEncoder) {
         this.problemManageService = problemManageService;
         this.bookRepository = bookRepository;
         this.bookSearchRepository = bookSearchRepository;
         this.bookDetailService = bookDetailService;
+        this.administratorService = administratorService;
+        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/sync")
@@ -76,5 +86,22 @@ public class AnonymousController {
             map.put("book", bookRepository.findById(id));
         }
         return ResultBean.ok(map);
+    }
+
+    @GetMapping("/user/register")
+    public ResultBean register(@RequestParam String username, @RequestParam String password) {
+        Administrator administrator = administratorService.findFirstByUsername(username).orElse(null);
+        if (administrator != null) {
+            return ResultBean.of(200, "User is Exist");
+        }
+        Role role = roleService.findFirstByIsDefault(true);
+        if (role == null) {
+            return ResultBean.of(200, "Can't find default role");
+        }
+        administrator.setUsername(username).setPassword(passwordEncoder.encode(password));
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        administrator.setRoles(roles);
+        return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administratorService.save(administrator)));
     }
 }
