@@ -13,6 +13,7 @@ import com.abouerp.zsc.library.service.AdministratorService;
 import com.abouerp.zsc.library.service.BookDetailService;
 import com.abouerp.zsc.library.service.ProblemManageService;
 import com.abouerp.zsc.library.service.RoleService;
+import com.abouerp.zsc.library.vo.AdministratorVO;
 import com.abouerp.zsc.library.vo.ProblemManageVO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 
 
 /**
+ * 匿名用户可访问接口
  * @author Abouerp
  */
 @RestController
@@ -63,6 +65,11 @@ public class AnonymousController {
         return ResultBean.ok();
     }
 
+    /**
+     * 获取显示的问题管理，在首页，无须权限
+     * @param pageable
+     * @return
+     */
     @GetMapping("/problem")
     public ResultBean findAllProblem(@PageableDefault(sort = "createTime", direction = Sort.Direction.DESC) Pageable pageable) {
         ProblemManageVO problemManageVO = new ProblemManageVO();
@@ -71,7 +78,7 @@ public class AnonymousController {
     }
 
     /**
-     * 获取图书的详细信息，包括馆藏信息
+     * 获取图书的详细信息，包括馆藏信息（搜索图书之后点击图书拿到详细信息）
      *
      * @param id 图书的id
      */
@@ -88,20 +95,30 @@ public class AnonymousController {
         return ResultBean.ok(map);
     }
 
-    @GetMapping("/user/register")
-    public ResultBean register(@RequestParam String username, @RequestParam String password) {
-        Administrator administrator = administratorService.findFirstByUsername(username).orElse(null);
-        if (administrator != null) {
-            return ResultBean.of(200, "User is Exist");
-        }
+    @PostMapping("/user/register")
+    public ResultBean register(@RequestBody AdministratorVO administratorVO) {
         Role role = roleService.findFirstByIsDefault(true);
         if (role == null) {
             return ResultBean.of(200, "Can't find default role");
         }
-        administrator.setUsername(username).setPassword(passwordEncoder.encode(password));
+        Administrator administrator = AdministratorMapper.INSTANCE.toAdmin(administratorVO);
+        administrator.setPassword(passwordEncoder.encode(administratorVO.getPassword()));
+        administrator.setCreateBy("anonymous");
+        administrator.setUpdateBy(administratorVO.getUsername());
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         administrator.setRoles(roles);
         return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administratorService.save(administrator)));
+    }
+
+    /**
+     *
+     * @param username
+     * @return true ：存在
+     *          false：不存在
+     */
+    @GetMapping("/user/exist")
+    public ResultBean existsByUserName(@RequestParam String username){
+        return ResultBean.ok(administratorService.existsByUserName(username));
     }
 }

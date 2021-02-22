@@ -23,4 +23,9 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
     @EntityGraph(attributePaths = "roles.authorities")
     Optional<Administrator> findFirstByMobile(String mobile);
 
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByMobile(String mobile);
 }

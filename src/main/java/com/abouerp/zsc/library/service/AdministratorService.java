@@ -81,5 +81,14 @@ public class AdministratorService {
 //        return administratorRepository.findByIdIn(ids);
 //    }
 
+    public boolean existsByUserName(String username) {
+        Boolean flag1 = administratorRepository.existsByUsername(username);
+        Boolean flag2 = administratorRepository.existsByEmail(username);
+        Boolean flag3 = administratorRepository.existsByMobile(username);
+        if (Boolean.FALSE.equals(flag1) && flag1.equals(flag2) && flag2.equals(flag3)) {
+            return false;
+        }
+        return true;
+    }
 
 }

@@ -9,7 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/library?createDatabaseIfNotExist=true&serverTimezone=UTC&characterEncoding=utf8
     username: root
-    password: root
+    password: chenjinjie
 
   jpa:
     generate-ddl: true
