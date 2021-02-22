@@ -103,6 +103,7 @@ public class AnonymousController {
         }
         Administrator administrator = AdministratorMapper.INSTANCE.toAdmin(administratorVO);
         administrator.setPassword(passwordEncoder.encode(administratorVO.getPassword()));
+        //todo have bug, remove createBy AND updateBy OR remove register
         administrator.setCreateBy("anonymous");
         administrator.setUpdateBy(administratorVO.getUsername());
         Set<Role> roles = new HashSet<>();
