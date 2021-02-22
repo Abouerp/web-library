@@ -49,24 +49,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
-
-                .and()
-
+            .and()
                 .logout()
                 .logoutUrl("/api/user/logout")
                 .permitAll()
                 .logoutSuccessHandler(logoutHandler)
-
-                .and()
-
+            .and()
                 .authorizeRequests()
-                .antMatchers("/api/user/me").permitAll()
+                .antMatchers("/api/user/me","/api/anonymous/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/storage/preview/**").permitAll()
-                .antMatchers("/api/anonymous/**").permitAll()
                 .antMatchers("/api/**").authenticated()
-
-                .and()
-
+            .and()
                 .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
