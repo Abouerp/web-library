@@ -15,6 +15,12 @@
 
 全局搜索：ElasticSearch，数据的同步利用RabbitMQ消息中间件来同步mysql数据到es
 
+登陆流程：3个请求
+GET 请求  /api/user/me 获得token
+POST 请求 /api/user/login  header带上  X-XSRF-TOKEN：token
+GET 请求 /api/user/me  重新获得token信息
+请求资源重新设置 header中 X-XSRF-TOKEN的值
+
 **学习记录**
 
 关于SpringData ElasticSearch： 
