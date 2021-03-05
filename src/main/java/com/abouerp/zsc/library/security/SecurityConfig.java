@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(logoutHandler)
             .and()
                 .authorizeRequests()
-                .antMatchers("/api/user/me","/api/anonymous/**").permitAll()
+                .antMatchers("/api/user/me","/api/anonymous/**","/api/book").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/storage/preview/**").permitAll()
                 .antMatchers("/api/**").authenticated()
             .and()
