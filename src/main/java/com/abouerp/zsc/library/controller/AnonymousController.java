@@ -9,6 +9,7 @@ import com.abouerp.zsc.library.mapper.AdministratorMapper;
 import com.abouerp.zsc.library.mapper.BookDetailMapper;
 import com.abouerp.zsc.library.repository.BookRepository;
 //import com.abouerp.zsc.library.repository.search.BookSearchRepository;
+import com.abouerp.zsc.library.repository.search.BookSearchRepository;
 import com.abouerp.zsc.library.service.AdministratorService;
 import com.abouerp.zsc.library.service.BookDetailService;
 import com.abouerp.zsc.library.service.ProblemManageService;
@@ -36,21 +37,21 @@ public class AnonymousController {
     private final ProblemManageService problemManageService;
     private final BookRepository bookRepository;
     private final BookDetailService bookDetailService;
-//    private final BookSearchRepository bookSearchRepository;
+    private final BookSearchRepository bookSearchRepository;
     private final AdministratorService administratorService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
     public AnonymousController(ProblemManageService problemManageService,
                                BookRepository bookRepository,
-//                               BookSearchRepository bookSearchRepository,
+                               BookSearchRepository bookSearchRepository,
                                BookDetailService bookDetailService,
                                AdministratorService administratorService,
                                RoleService roleService,
                                PasswordEncoder passwordEncoder) {
         this.problemManageService = problemManageService;
         this.bookRepository = bookRepository;
-//        this.bookSearchRepository = bookSearchRepository;
+        this.bookSearchRepository = bookSearchRepository;
         this.bookDetailService = bookDetailService;
         this.administratorService = administratorService;
         this.roleService = roleService;
@@ -60,8 +61,8 @@ public class AnonymousController {
     @GetMapping("/sync")
     public ResultBean sync() {
         List<Book> list = bookRepository.findAll();
-//        bookSearchRepository.deleteAll();
-//        bookSearchRepository.saveAll(list);
+        bookSearchRepository.deleteAll();
+        bookSearchRepository.saveAll(list);
         return ResultBean.ok();
     }
 
