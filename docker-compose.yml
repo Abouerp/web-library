@@ -56,18 +56,18 @@ services:
       RABBITMQ_DEFAULT_PASS: "admin"
     restart: always
 
-  elastic:
-    image: elasticsearch:6.8.6
-    networks:
-      - library
-    ports:
-      - 9200:9200
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - library_elastic_data:/usr/share/elasticsearch/data
-    environment:
-      - 'ES_JAVA_OPTS=-Xms1024m -Xmx1024m'
-      - 'discovery.type=single-node'
+#  elastic:
+#    image: elasticsearch:6.8.6
+#    networks:
+#      - library
+#    ports:
+#      - 9200:9200
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+#      - library_elastic_data:/usr/share/elasticsearch/data
+#    environment:
+#      - 'ES_JAVA_OPTS=-Xms1024m -Xmx1024m'
+#      - 'discovery.type=single-node'
 
 networks:
   library:
@@ -80,7 +80,7 @@ volumes:
     external: true
   library_rabbitmq_data:
     external: true
-  library_elastic_data:
-    external: true
+#  library_elastic_data:
+#    external: true
 
 
