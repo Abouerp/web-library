@@ -9,7 +9,7 @@ services:
       - redis
       - rabbitmq
     ports:
-      - 80:8080
+      - 9999:8080
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./deploy/resources/application.yml:/app/resources/application.yml:ro
@@ -20,8 +20,8 @@ services:
     image: mysql
     networks:
       - library
-    ports:
-      - 3306:3306
+#    ports:
+#      - 3306:3306
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./deploy/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf:ro
