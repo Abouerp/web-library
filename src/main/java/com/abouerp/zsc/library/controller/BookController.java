@@ -8,24 +8,23 @@ import com.abouerp.zsc.library.dto.ReptileBookDTO;
 import com.abouerp.zsc.library.exception.BookCategoryNotFoundException;
 import com.abouerp.zsc.library.exception.BookNotFoundException;
 import com.abouerp.zsc.library.mapper.BookMapper;
-import com.abouerp.zsc.library.repository.search.BookSearchRepository;
+//import com.abouerp.zsc.library.repository.search.BookSearchRepository;
 import com.abouerp.zsc.library.service.BookCategoryService;
 import com.abouerp.zsc.library.service.BookService;
 import com.abouerp.zsc.library.service.FileStorageService;
-import com.abouerp.zsc.library.utils.IpResolutionUtils;
 import com.abouerp.zsc.library.utils.JsonUtils;
 import com.abouerp.zsc.library.utils.RandomDateUtils;
 import com.abouerp.zsc.library.utils.SecurityUtils;
 import com.abouerp.zsc.library.vo.BookVO;
-import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.index.query.QueryBuilders;
+//import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+//import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+//import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,17 +47,18 @@ public class BookController {
     private final BookService bookService;
     private final BookCategoryService bookCategoryService;
     private final FileStorageService fileStorageService;
-    private final BookSearchRepository bookSearchRepository;
+//    private final BookSearchRepository bookSearchRepository;
     private String url = "https://www.szlib.org.cn/api/opacservice/getQueryResult";
     private static final String INDEX = "library_books";
 
     public BookController(BookService bookService, BookCategoryService bookCategoryService,
-                          FileStorageService fileStorageService,
-                          BookSearchRepository bookSearchRepository) {
+                          FileStorageService fileStorageService
+//                          BookSearchRepository bookSearchRepository
+    ) {
         this.bookService = bookService;
         this.bookCategoryService = bookCategoryService;
         this.fileStorageService = fileStorageService;
-        this.bookSearchRepository = bookSearchRepository;
+//        this.bookSearchRepository = bookSearchRepository;
     }
 
     private static Book update(Book book, Optional<BookVO> bookVO) {
@@ -163,85 +163,85 @@ public class BookController {
      * 爬取数据
      * @param keyword  爬取关键字
      */
-    @GetMapping("/reptile")
-    public ResultBean reptileBook(@RequestParam String keyword,
-                                  @RequestParam(defaultValue = "1") String page,
-                                  @RequestParam(defaultValue = "50") String size) {
-        //解决内存溢出问题
-        ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
-                .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(1024_0000)).build();
-
-        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(url)
-                .queryParam("v_index","title")
-                .queryParam("library","all")
-                .queryParam("v_tablearray","bibliosm,serbibm,apabibibm,mmbibm,")
-                .queryParam("sortfield","ptitle")
-                .queryParam("sorttype","desc")
-                .queryParam("pageNum",size) //个数
-                .queryParam("v_page",page)   //页数
-                .queryParam("v_value",keyword);
-
-        //爬取数据
-        ReptileBookDTO.Message message = WebClient
-                .builder()
-                .exchangeStrategies(exchangeStrategies)
-                .build()
-                .get()
-                .uri(uriComponentsBuilder.toUriString())
-                .retrieve()
-                .bodyToMono(String.class)
-                .map(it -> JsonUtils.readValue(it, ReptileBookDTO.class))
-                .filter(it -> it.getData() != null)
-                .map(ReptileBookDTO::getData).block();
-
-        //插入数据库
-        //设置图书类别，在es根据关键字查询，若没有，则在数据库中查找，若数据库没有，创建一个
-        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
-                .withIndices(INDEX)
-                .withQuery(QueryBuilders.boolQuery()
-                        .must(QueryBuilders.matchQuery("name", keyword)))
-                .withPageable(PageRequest.of(0, 10))
-                .build();
-        List<Book> search = bookSearchRepository.search(searchQuery).getContent();
-        BookCategory bookCategory;
-        if (search.size() != 0) {
-            bookCategory = search.get(0).getBookCategory();
-        } else {
-            List<BookCategory> bookCategories = bookCategoryService.findAll(null, PageRequest.of(0, 10)).getContent();
-            if (bookCategories.size()!=0){
-                bookCategory = bookCategories.get(0);
-            }else {
-                String s = UUID.randomUUID().toString().substring(0,2)+"01";
-                bookCategory = new BookCategory()
-                        .setName(keyword)
-                        .setCode(s)
-                        .setCreateTime(Instant.now())
-                        .setCreateBy(SecurityUtils.getCurrentUserLogin());
-                bookCategory = bookCategoryService.save(bookCategory);
-            }
-        }
-        Book preBook = bookService.findLastBookByBookCategoryId(bookCategory.getId());
-        Integer code = Integer.parseInt(getCode(preBook, bookCategory.getCode()).substring(4));
-
-        List<ReptileBookDTO.Result> docses = message.getDocs();
-        Random random = new Random();
-        List<Book> list = new ArrayList<>();
-        for (ReptileBookDTO.Result docs: docses){
-            Book book = new Book()
-                    .setName(docs.getTitle())
-                    .setCode(String.format(bookCategory.getCode() + "%04d", code++))
-                    .setIsbn(docs.getIsbn())
-                    .setAuthor(docs.getAuthor())
-                    .setPublisher(docs.getPublisher())
-                    .setDescription(docs.getU_abstract())
-                    .setPrice(random.nextDouble()*100)
-                    .setPublicationTime(RandomDateUtils.dateTime())
-                    .setBookCategory(bookCategory)
-                    .setCreateTime(Instant.now())
-                    .setCreateBy(SecurityUtils.getCurrentUserLogin());
-            bookService.save(book);
-            list.add(book);
-        }
-        return ResultBean.ok(list);
-    }
+//    @GetMapping("/reptile")
+//    public ResultBean reptileBook(@RequestParam String keyword,
+//                                  @RequestParam(defaultValue = "1") String page,
+//                                  @RequestParam(defaultValue = "50") String size) {
+//        //解决内存溢出问题
+//        ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
+//                .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(1024_0000)).build();
+//
+//        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(url)
+//                .queryParam("v_index","title")
+//                .queryParam("library","all")
+//                .queryParam("v_tablearray","bibliosm,serbibm,apabibibm,mmbibm,")
+//                .queryParam("sortfield","ptitle")
+//                .queryParam("sorttype","desc")
+//                .queryParam("pageNum",size) //个数
+//                .queryParam("v_page",page)   //页数
+//                .queryParam("v_value",keyword);
+//
+//        //爬取数据
+//        ReptileBookDTO.Message message = WebClient
+//                .builder()
+//                .exchangeStrategies(exchangeStrategies)
+//                .build()
+//                .get()
+//                .uri(uriComponentsBuilder.toUriString())
+//                .retrieve()
+//                .bodyToMono(String.class)
+//                .map(it -> JsonUtils.readValue(it, ReptileBookDTO.class))
+//                .filter(it -> it.getData() != null)
+//                .map(ReptileBookDTO::getData).block();
+//
+//        //插入数据库
+//        //设置图书类别，在es根据关键字查询，若没有，则在数据库中查找，若数据库没有，创建一个
+//        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
+//                .withIndices(INDEX)
+//                .withQuery(QueryBuilders.boolQuery()
+//                        .must(QueryBuilders.matchQuery("name", keyword)))
+//                .withPageable(PageRequest.of(0, 10))
+//                .build();
+//        List<Book> search = bookSearchRepository.search(searchQuery).getContent();
+//        BookCategory bookCategory;
+//        if (search.size() != 0) {
+//            bookCategory = search.get(0).getBookCategory();
+//        } else {
+//            List<BookCategory> bookCategories = bookCategoryService.findAll(null, PageRequest.of(0, 10)).getContent();
+//            if (bookCategories.size()!=0){
+//                bookCategory = bookCategories.get(0);
+//            }else {
+//                String s = UUID.randomUUID().toString().substring(0,2)+"01";
+//                bookCategory = new BookCategory()
+//                        .setName(keyword)
+//                        .setCode(s)
+//                        .setCreateTime(Instant.now())
+//                        .setCreateBy(SecurityUtils.getCurrentUserLogin());
+//                bookCategory = bookCategoryService.save(bookCategory);
+//            }
+//        }
+//        Book preBook = bookService.findLastBookByBookCategoryId(bookCategory.getId());
+//        Integer code = Integer.parseInt(getCode(preBook, bookCategory.getCode()).substring(4));
+//
+//        List<ReptileBookDTO.Result> docses = message.getDocs();
+//        Random random = new Random();
+//        List<Book> list = new ArrayList<>();
+//        for (ReptileBookDTO.Result docs: docses){
+//            Book book = new Book()
+//                    .setName(docs.getTitle())
+//                    .setCode(String.format(bookCategory.getCode() + "%04d", code++))
+//                    .setIsbn(docs.getIsbn())
+//                    .setAuthor(docs.getAuthor())
+//                    .setPublisher(docs.getPublisher())
+//                    .setDescription(docs.getU_abstract())
+//                    .setPrice(random.nextDouble()*100)
+//                    .setPublicationTime(RandomDateUtils.dateTime())
+//                    .setBookCategory(bookCategory)
+//                    .setCreateTime(Instant.now())
+//                    .setCreateBy(SecurityUtils.getCurrentUserLogin());
+//            bookService.save(book);
+//            list.add(book);
+//        }
+//        return ResultBean.ok(list);
+//    }
 }

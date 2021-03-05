@@ -97,10 +97,11 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-elasticsearch</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.data</groupId>-->
+<!--			<artifactId>spring-data-elasticsearch</artifactId>-->
+<!--		</dependency>-->
+
 		<!-- https://mvnrepository.com/artifact/com.github.vanroy/spring-boot-starter-data-jest -->
 <!--		<dependency>-->
 <!--			<groupId>com.github.vanroy</groupId>-->
