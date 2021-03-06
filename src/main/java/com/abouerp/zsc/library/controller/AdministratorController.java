@@ -49,6 +49,8 @@ public class AdministratorController {
         administratorVO.map(AdministratorVO::getSex).ifPresent(administrator::setSex);
         administratorVO.map(AdministratorVO::getMd5).ifPresent(administrator::setMd5);
         administratorVO.map(AdministratorVO::getEnabled).ifPresent(administrator::setEnabled);
+        administratorVO.map(AdministratorVO::getNickName).ifPresent(administrator::setNickName);
+        administratorVO.map(AdministratorVO::getDescription).ifPresent(administrator::setDescription);
         return administrator;
     }
 
