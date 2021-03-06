@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
@@ -95,11 +96,12 @@ public class AdministratorController {
 
     @PutMapping("/{id}")
     @PreAuthorize("principal.id == #id or hasAuthority('USER_UPDATE')")
-    public ResultBean<AdministratorDTO> update(@PathVariable Integer id, @RequestBody Optional<AdministratorVO> adminVO) {
+    public ResultBean<AdministratorDTO> update(@PathVariable Integer id,
+                                               @RequestBody Optional<AdministratorVO> adminVO) {
         Administrator admin = administratorService.findById(id)
                 .orElseThrow(UserNotFoundException::new);
-        List<Integer> roleIds = adminVO.map(AdministratorVO::getRole).get();
-        if (adminVO != null && roleIds.size() != 0) {
+        List<Integer> roleIds = adminVO.map(AdministratorVO::getRole).orElse(null);
+        if (adminVO != null && roleIds!=null && roleIds.size() != 0) {
             admin.setRoles(roleService.findByIdIn(roleIds).stream().collect(Collectors.toSet()));
         }
         return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administratorService.save(update(admin, adminVO))));
