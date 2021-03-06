@@ -98,8 +98,8 @@ public class AdministratorController {
     public ResultBean<AdministratorDTO> update(@PathVariable Integer id, @RequestBody Optional<AdministratorVO> adminVO) {
         Administrator admin = administratorService.findById(id)
                 .orElseThrow(UserNotFoundException::new);
-        List<Integer> roleIds = adminVO.map(AdministratorVO::getRole).get();
-        if (adminVO != null && roleIds.size() != 0) {
+        List<Integer> roleIds = adminVO.map(AdministratorVO::getRole).orElse(null);
+        if (adminVO != null && roleIds!=null && roleIds.size() != 0) {
             admin.setRoles(roleService.findByIdIn(roleIds).stream().collect(Collectors.toSet()));
         }
         return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administratorService.save(update(admin, adminVO))));
