@@ -4,6 +4,7 @@ package com.abouerp.zsc.library.dto;
 import com.abouerp.zsc.library.domain.user.Role;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.Set;
 
 /**
@@ -25,4 +26,8 @@ public class AdministratorDTO {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+    private String createBy;
+    private String  updateBy;
+    private Instant createTime;
+    private Instant updateTime;
 }
