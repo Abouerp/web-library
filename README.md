@@ -57,3 +57,7 @@ https://library.tibis.top/
 
 小程序后端仓库
 https://github.com/Abouerp/applet-library
+
+dev分支注释掉了es，git clone之后修改mysql连接密码即可跑起来
+登陆用户：admin 
+密码：admin
