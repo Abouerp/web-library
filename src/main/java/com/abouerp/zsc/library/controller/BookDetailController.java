@@ -8,6 +8,7 @@ import com.abouerp.zsc.library.vo.BookDetailVO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -26,16 +27,19 @@ public class BookDetailController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('BOOK_DETAIL_CREATE')")
     public ResultBean save(@RequestBody BookDetailVO bookDetailVO) {
         return ResultBean.ok(BookDetailMapper.INSTANCE.toDTO(bookDetailService.save(bookDetailVO)));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('BOOK_DETAIL_UPDATE')")
     public ResultBean update(@PathVariable Integer id, @RequestBody Optional<BookDetailVO> bookDetailVO) {
         return ResultBean.ok(BookDetailMapper.INSTANCE.toDTO(bookDetailService.update(id, bookDetailVO)));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('BOOK_DETAIL_DELETE')")
     public ResultBean delete(@PathVariable Integer id) {
         bookDetailService.delete(id);
         return ResultBean.ok();
@@ -47,6 +51,7 @@ public class BookDetailController {
      * @param bookDetailVO.bookId 图书的id
      */
     @GetMapping
+    @PreAuthorize("hasAuthority('BOOK_DETAIL_READ')")
     public ResultBean findAll(BookDetailVO bookDetailVO,
                               @PageableDefault(sort = "createTime", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResultBean.ok(bookDetailService.findAll(pageable, bookDetailVO).map(BookDetailMapper.INSTANCE::toDTO));
@@ -56,6 +61,7 @@ public class BookDetailController {
      * 获取图书的状态
      */
     @GetMapping("/status")
+    @PreAuthorize("hasAuthority('BOOK_DETAIL_CREATE')")
     public ResultBean getBookStatus() {
         return ResultBean.ok(BookStatus.mappers);
     }

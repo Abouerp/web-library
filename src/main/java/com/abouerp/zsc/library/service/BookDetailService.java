@@ -37,7 +37,7 @@ public class BookDetailService {
 
     private BookDetail update(BookDetail bookDetail, Optional<BookDetailVO> bookDetailVO) {
         bookDetailVO.map(BookDetailVO::getAddress).ifPresent(bookDetail::setAddress);
-        bookDetailVO.map(BookDetailVO::getBackTime).ifPresent(bookDetail::setBackTime);
+        bookDetailVO.map(BookDetailVO::getReturnTime).ifPresent(bookDetail::setReturnTime);
         bookDetailVO.map(BookDetailVO::getRenewalTimes).ifPresent(bookDetail::setRenewalTimes);
         bookDetailVO.map(BookDetailVO::getBorrowingTimes).ifPresent(bookDetail::setBorrowingTimes);
         bookDetailVO.map(BookDetailVO::getStatus).ifPresent(bookDetail::setStatus);
