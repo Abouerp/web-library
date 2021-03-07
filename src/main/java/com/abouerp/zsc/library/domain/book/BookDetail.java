@@ -35,7 +35,7 @@ public class BookDetail implements Serializable {
     //在馆位置
     private String address;
     //还书时间
-    private String backTime;
+    private Instant returnTime;
     @Enumerated(EnumType.STRING)
     private BookStatus status;
     //借阅次数
