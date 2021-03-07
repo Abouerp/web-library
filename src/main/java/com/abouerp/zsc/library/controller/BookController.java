@@ -26,6 +26,7 @@ import org.springframework.data.domain.Sort;
 //import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 //import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
@@ -73,6 +74,7 @@ public class BookController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('BOOK_CREATE')")
     public ResultBean save(@RequestBody BookVO bookVO) {
         if (bookService.findByIsbn(bookVO.getIsbn()) != null) {
             return ResultBean.of(200, "ISBN is exist");
@@ -88,6 +90,7 @@ public class BookController {
 
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('BOOK_UPDATE')")
     public ResultBean<BookDTO> update(@PathVariable Integer id, @RequestBody Optional<BookVO> bookVO) {
         Book book = bookService.findById(id).orElseThrow(BookNotFoundException::new);
         Integer bookCategoryId = bookVO.get().getBookCategoryId();
@@ -98,6 +101,7 @@ public class BookController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('BOOK_READ')")
     public ResultBean<Page<BookDTO>> findAll(
             @PageableDefault(sort = "createTime", direction = Sort.Direction.DESC) Pageable pageable,
             BookVO bookVO) {
@@ -105,12 +109,14 @@ public class BookController {
     }
 
     @DeleteMapping
+    @PreAuthorize("hasAuthority('BOOK_DELETE')")
     public ResultBean delete(@RequestBody Set<Integer> ids) {
         bookService.delete(ids);
         return ResultBean.ok();
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('BOOK_READ')")
     public ResultBean<BookDTO> findById(@PathVariable Integer id) {
         Book book = bookService.findById(id).orElseThrow(BookNotFoundException::new);
         return ResultBean.ok(BookMapper.INSTANCE.toDTO(book));

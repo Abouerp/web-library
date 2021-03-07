@@ -19,10 +19,10 @@ public enum Authority {
     USER_UPDATE("用户更新"),
     USER_DELETE("用户删除"),
 
-    BOOK_CATEGORY_CREATE("图书分类创建"),
-    BOOK_CATEGORY_READ("图书分类查看"),
-    BOOK_CATEGORY_UPDATE("图书分类更新"),
-    BOOK_CATEGORY_DELETE("图书分类删除"),
+    BOOK_CATEGORY_CREATE("图书类别创建"),
+    BOOK_CATEGORY_READ("图书类别查看"),
+    BOOK_CATEGORY_UPDATE("图书类别更新"),
+    BOOK_CATEGORY_DELETE("图书类别删除"),
 
     BOOK_CREATE("图书创建"),
     BOOK_READ("图书查看"),
