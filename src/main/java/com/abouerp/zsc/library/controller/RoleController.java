@@ -33,7 +33,7 @@ public class RoleController {
         if (roleVO != null && roleVO.getName() != null) {
             role.setName(roleVO.getName());
         }
-        if (roleVO != null && roleVO.getAuthorities() != null && !roleVO.getAuthorities().isEmpty()) {
+        if (roleVO != null && roleVO.getAuthorities() != null) {
             role.setAuthorities(roleVO.getAuthorities());
         }
         if (roleVO != null && roleVO.getIsDefault() != null) {
