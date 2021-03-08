@@ -114,8 +114,8 @@ public class AdministratorController {
         return ResultBean.ok();
     }
 
-    @PatchMapping("/{id}/password")
-    @PreAuthorize("principal.id == #id or hasAuthority('USER_UPDATE')")
+    @PatchMapping("/password/me")
+//    @PreAuthorize("principal.id == #id or hasAuthority('USER_UPDATE')")
     public ResultBean<AdministratorDTO> updatePassword(
             @AuthenticationPrincipal UserPrincipal userPrincipal,
             String srcPassword,
@@ -126,6 +126,15 @@ public class AdministratorController {
         if (!passwordEncoder.matches(srcPassword, administrator.getPassword())) {
             throw new PasswordNotMatchException();
         }
+        administrator.setPassword(passwordEncoder.encode(password));
+        return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administratorService.save(administrator)));
+    }
+
+    @PatchMapping("/password/{id}")
+    @PreAuthorize("hasAuthority('USER_UPDATE')")
+    public ResultBean<AdministratorDTO> updatePassword(@PathVariable Integer id, @RequestParam String password) {
+        Administrator administrator = administratorService.findById(id)
+                .orElseThrow(UserNotFoundException::new);
         administrator.setPassword(passwordEncoder.encode(password));
         return ResultBean.ok(AdministratorMapper.INSTANCE.toDTO(administratorService.save(administrator)));
     }
