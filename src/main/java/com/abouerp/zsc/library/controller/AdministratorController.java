@@ -130,7 +130,7 @@ public class AdministratorController {
 
     @PatchMapping("/password/{id}")
     @PreAuthorize("hasAuthority('USER_UPDATE')")
-    public ResultBean<AdministratorDTO> updatePassword(@PathVariable Integer id, String password) {
+    public ResultBean<AdministratorDTO> updatePassword(@PathVariable Integer id, @RequestParam String password) {
         Administrator administrator = administratorService.findById(id)
                 .orElseThrow(UserNotFoundException::new);
         administrator.setPassword(passwordEncoder.encode(password));
