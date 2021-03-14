@@ -101,7 +101,7 @@ public class BookController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('BOOK_READ')")
+//    @PreAuthorize("hasAuthority('BOOK_READ')")
     public ResultBean<Page<BookDTO>> findAll(
             @PageableDefault(sort = "createTime", direction = Sort.Direction.DESC) Pageable pageable,
             BookVO bookVO) {
