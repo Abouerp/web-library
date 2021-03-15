@@ -1,6 +1,9 @@
 package com.abouerp.zsc.library.security;
 
+import com.abouerp.zsc.library.bean.ResultBean;
 import com.abouerp.zsc.library.security.handler.LogoutHandler;
+import com.abouerp.zsc.library.utils.JsonUtils;
+import com.rabbitmq.tools.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -85,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         public void commence(HttpServletRequest request, HttpServletResponse response,
                              AuthenticationException authException) throws IOException, ServletException {
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.getWriter().write(JsonUtils.writeValueAsString(ResultBean.of(200,"Can't access resource")));
         }
     }
 
