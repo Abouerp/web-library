@@ -49,27 +49,17 @@ public class LoginLoggerService {
     private LoginLogger toLoginLogger(String userName, LoginStatusEnum status) {
         UserAgent userAgent = UserAgent.parseUserAgentString(httpServletRequest.getHeader(HttpHeaders.USER_AGENT));
         String ip = LoggerUtils.getClientIpAddress(httpServletRequest);
-        IpResolutionDTO ipResolutionDTO = IpResolutionUtils.resolution(ip);
-        LoginLogger loginLogger;
-        if (ipResolutionDTO != null) {
-            loginLogger = new LoginLogger()
+//        IpResolutionDTO ipResolutionDTO = IpResolutionUtils.resolution(ip);
+        LoginLogger loginLogger = new LoginLogger()
                     .setUserName(userName)
                     .setIp(ip)
-                    .setCountry(ipResolutionDTO.getData().getCountry())
-                    .setCity(ipResolutionDTO.getData().getCity())
-                    .setIsp(ipResolutionDTO.getData().getIsp())
+//                    .setCountry(ipResolutionDTO.getData().getCountry())
+//                    .setCity(ipResolutionDTO.getData().getCity())
+//                    .setIsp(ipResolutionDTO.getData().getIsp())
                     .setOperatingSystem(userAgent.getOperatingSystem().getName())
                     .setClient(userAgent.getBrowser().toString())
-                    .setRegion(ipResolutionDTO.getData().getRegion())
+//                    .setRegion(ipResolutionDTO.getData().getRegion())
                     .setStatus(status);
-        } else {
-            loginLogger = new LoginLogger()
-                    .setUserName(userName)
-                    .setIp(ip)
-                    .setOperatingSystem(userAgent.getOperatingSystem().getName())
-                    .setStatus(status);
-        }
-
         return loginLogger;
     }
 
