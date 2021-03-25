@@ -1,6 +1,7 @@
 package com.abouerp.zsc.library.utils;
 
 import com.abouerp.zsc.library.dto.IpResolutionDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -40,7 +41,16 @@ public abstract class IpResolutionUtils {
                 .uri(uriComponentsBuilder.toUriString())
                 .retrieve()
                 .bodyToMono(String.class)
-                .map(it -> JsonUtils.readValue(it, IpResolutionDTO.class))
+                .map(it -> {
+                    try {
+                        return JsonUtils.readValue(it, IpResolutionDTO.class);
+                    }catch (Exception e){
+                        if (log.isErrorEnabled()) {
+                            log.error("{}", it, e);
+                        }
+                        return new IpResolutionDTO();
+                    }
+                })
                 .filter(it -> it.getData() != null)
                 .block();
     }
