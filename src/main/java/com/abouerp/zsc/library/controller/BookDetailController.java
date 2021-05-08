@@ -1,7 +1,9 @@
 package com.abouerp.zsc.library.controller;
 
 import com.abouerp.zsc.library.bean.ResultBean;
+import com.abouerp.zsc.library.domain.book.BookDetail;
 import com.abouerp.zsc.library.domain.book.BookStatus;
+import com.abouerp.zsc.library.exception.BookDetailNotFoundException;
 import com.abouerp.zsc.library.mapper.BookDetailMapper;
 import com.abouerp.zsc.library.service.BookDetailService;
 import com.abouerp.zsc.library.vo.BookDetailVO;
@@ -64,5 +66,12 @@ public class BookDetailController {
     @PreAuthorize("hasAuthority('BOOK_DETAIL_CREATE')")
     public ResultBean getBookStatus() {
         return ResultBean.ok(BookStatus.mappers);
+    }
+
+    @PatchMapping("/status")
+    public ResultBean update(@PathVariable Integer id, @RequestParam BookStatus status) {
+        BookDetail bookDetail = bookDetailService.findById(id).orElseThrow(BookDetailNotFoundException::new);
+        bookDetail.setStatus(status);
+        return ResultBean.ok(BookDetailMapper.INSTANCE.toDTO(bookDetailService.save(bookDetail)));
     }
 }

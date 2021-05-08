@@ -93,4 +93,11 @@ public class BookDetailService {
         return bookDetailRepository.findByBookId(id);
     }
 
+    public Optional<BookDetail> findById(Integer id){
+        return bookDetailRepository.findById(id);
+    }
+
+    public BookDetail save(BookDetail bookDetail) {
+        return bookDetailRepository.save(bookDetail);
+    }
 }
