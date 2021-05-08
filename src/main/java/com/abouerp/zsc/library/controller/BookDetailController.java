@@ -68,7 +68,7 @@ public class BookDetailController {
         return ResultBean.ok(BookStatus.mappers);
     }
 
-    @PatchMapping("/status")
+    @PatchMapping("/status/{id}")
     public ResultBean update(@PathVariable Integer id, @RequestParam BookStatus status) {
         BookDetail bookDetail = bookDetailService.findById(id).orElseThrow(BookDetailNotFoundException::new);
         bookDetail.setStatus(status);
